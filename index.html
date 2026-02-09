@@ -2,194 +2,171 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Writing is Fun with Dr Saufi</title>
     <style>
-        /* CSS: Kid-Friendly Styling */
+        /* --- GENERAL STYLES --- */
         body {
-            font-family: 'Comic Sans MS', 'Arial', sans-serif;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial', sans-serif;
             background-color: #e0f7fa;
             text-align: center;
-            padding: 20px;
+            padding: 10px;
             margin: 0;
+            user-select: none; /* Prevent text selection during drag */
+            overflow-x: hidden;
         }
 
-        /* DR SAUFI BRANDING */
-        .main-title {
-            color: #d84315; /* Deep Orange */
-            font-size: 2.5rem;
-            margin-bottom: 5px;
+        h1.main-title {
+            color: #d84315;
+            font-size: 2rem;
+            margin: 10px 0 5px 0;
             text-shadow: 2px 2px 0px #ffccbc;
         }
-        
-        .sub-header {
-            color: #006064;
-            font-size: 1.2rem;
-            margin-bottom: 25px;
-            font-weight: bold;
-        }
 
-        /* TABS NAVIGATION */
-        .tabs {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 0;
-        }
+        .sub-header { color: #006064; font-size: 1.1rem; margin-bottom: 15px; font-weight: bold; }
 
+        /* --- TABS --- */
+        .tabs { display: flex; justify-content: center; gap: 5px; margin-bottom: 0; }
         .tab-btn {
-            padding: 15px 30px;
-            font-size: 18px;
+            padding: 12px 20px;
+            font-size: 16px;
             border: none;
             border-radius: 15px 15px 0 0;
             cursor: pointer;
             background-color: #b0bec5;
             color: #37474f;
             font-weight: bold;
-            width: 220px;
-            transition: background 0.3s;
+            width: 45%;
+            max-width: 200px;
         }
+        .tab-btn.active { background-color: white; color: #006064; box-shadow: 0 -4px 10px rgba(0,0,0,0.1); }
 
-        .tab-btn:hover { background-color: #cfd8dc; }
-
-        .tab-btn.active {
-            background-color: white;
-            color: #006064;
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
-        }
-
+        /* --- CONTAINER --- */
         .container {
             max-width: 900px;
             margin: 0 auto;
             background: white;
-            padding: 30px;
-            border-radius: 20px;
+            padding: 20px;
+            border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            min-height: 450px;
+            min-height: 500px;
+            position: relative;
         }
 
-        /* MENU GRID */
+        /* --- MENU GRID --- */
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
             gap: 15px;
             margin-top: 20px;
         }
-
         .level-btn {
-            padding: 25px;
+            padding: 20px;
             font-size: 18px;
             border: none;
             border-radius: 15px;
             cursor: pointer;
-            transition: transform 0.2s;
             color: white;
             font-weight: bold;
             box-shadow: 0 5px 0 rgba(0,0,0,0.2);
+            transition: transform 0.1s;
         }
-        .level-btn:hover { transform: scale(1.05); }
-        .level-btn:active { transform: scale(0.95); box-shadow: none; translateY(5px); }
-
+        .level-btn:active { transform: translateY(4px); box-shadow: none; }
+        
         /* Level Colors */
-        .y1 { background-color: #FF6B6B; }
-        .y2 { background-color: #FF8E53; }
-        .y3 { background-color: #FFD93D; color: #444; }
-        .y4 { background-color: #6BCB77; }
-        .y5 { background-color: #4D96FF; }
-        .y6 { background-color: #6C5CE7; }
+        .y1 { background-color: #FF6B6B; } .y2 { background-color: #FF8E53; }
+        .y3 { background-color: #FFD93D; color: #444; } .y4 { background-color: #6BCB77; }
+        .y5 { background-color: #4D96FF; } .y6 { background-color: #6C5CE7; }
 
-        /* GAME AREA */
-        .game-area { display: none; }
+        /* --- GAME AREA --- */
+        .game-header { display: flex; justify-content: space-between; align-items: center; padding: 0 10px; }
+        .progress-box { background: #eee; padding: 5px 15px; border-radius: 20px; font-weight: bold; color: #555; }
+        .score-box { background: #ffe0b2; color: #e65100; padding: 5px 15px; border-radius: 20px; font-weight: bold; }
 
+        /* DROP ZONES (Slots) */
         .sentence-row {
             display: flex;
             justify-content: center;
-            gap: 8px;
-            margin: 30px 0;
+            gap: 10px;
+            margin: 40px 0;
             flex-wrap: wrap;
+            min-height: 80px;
         }
 
         .slot {
-            min-width: 110px;
-            height: 65px;
-            border: 3px dashed #b0bec5;
+            width: 130px;
+            height: 70px;
+            border: 3px dashed #cfd8dc;
             border-radius: 12px;
+            background-color: #f5f5f5;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #f5f5f5;
-            font-size: 18px;
-            font-weight: bold;
-            color: #555;
             position: relative;
-            padding: 0 10px;
+            transition: all 0.3s;
         }
 
         .slot::before {
-            content: attr(data-type);
+            content: attr(data-label);
             position: absolute;
             top: -25px;
             font-size: 12px;
-            color: #78909c;
+            color: #90a4ae;
             text-transform: uppercase;
             font-weight: bold;
         }
 
-        .slot.filled {
-            border-style: solid;
-            background-color: #e8f5e9;
-            color: #2e7d32;
-            border-color: #4caf50;
-        }
+        .slot.hovered { border-color: #29b6f6; background-color: #e1f5fe; transform: scale(1.05); }
+        .slot.filled { border-style: solid; border-color: #cfd8dc; background-color: white; }
+        .slot.correct { border-color: #43a047; background-color: #e8f5e9; }
+        .slot.wrong { border-color: #e53935; background-color: #ffebee; }
 
-        .slot[data-type="Verb-to-be"] { border-color: #ffcc80; background-color: #fff3e0; }
-        .slot[data-type="Verb-ing"] { border-color: #80cbc4; background-color: #e0f2f1; }
-
+        /* DRAGGABLE ITEMS */
         .word-bank {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 15px;
             flex-wrap: wrap;
             margin-top: 30px;
+            padding: 20px;
+            background: #fafafa;
+            border-radius: 15px;
+            min-height: 100px;
+            border: 2px solid #eee;
         }
 
-        .word-chip {
+        .draggable {
             background-color: #0288d1;
             color: white;
-            border: none;
             padding: 12px 20px;
             font-size: 18px;
             border-radius: 25px;
-            cursor: pointer;
+            cursor: grab;
             box-shadow: 0 4px 0 #01579b;
-            transition: transform 0.1s;
+            z-index: 100;
+            touch-action: none; /* Critical for mobile drag */
         }
         
-        .word-chip:hover { background-color: #039be5; transform: translateY(-2px); }
-        .word-chip:active { transform: translateY(2px); box-shadow: none; }
+        .draggable:active { cursor: grabbing; }
+        .draggable.used { opacity: 0.5; pointer-events: none; display: none; }
 
-        .feedback {
-            font-size: 24px;
-            font-weight: bold;
-            height: 40px;
-            margin: 20px 0;
-        }
-        .correct { color: #2e7d32; }
-        .wrong { color: #c62828; }
-
-        .nav-btn {
-            margin-top: 20px;
-            padding: 12px 24px;
+        /* BUTTONS */
+        .nav-area { margin-top: 20px; }
+        .btn {
+            padding: 12px 25px;
             font-size: 18px;
-            cursor: pointer;
             border: none;
             border-radius: 8px;
+            cursor: pointer;
             color: white;
+            margin: 5px;
             box-shadow: 0 4px 0 rgba(0,0,0,0.2);
         }
-        #checkBtn { background-color: #fb8c00; }
-        #nextBtn { background-color: #43a047; display: none; }
-        #homeBtn { background-color: #78909c; margin-right: 15px;}
+        .btn-home { background-color: #78909c; }
+        .btn-check { background-color: #fb8c00; }
+        .btn-next { background-color: #43a047; display: none; }
+        
+        #feedback { font-size: 20px; font-weight: bold; height: 30px; margin-top: 10px; }
 
     </style>
 </head>
@@ -199,14 +176,15 @@
     <div class="sub-header" id="modeSubtitle">Basic Sentence Builder</div>
 
     <div class="tabs">
-        <button class="tab-btn active" onclick="switchMode('standard')" id="tab-standard">Basic Sentence<br>(S + V + C)</button>
-        <button class="tab-btn" onclick="switchMode('continuous')" id="tab-continuous">Continuous Tense<br>(S + Be + V-ing + C)</button>
+        <button class="tab-btn active" onclick="setMode('standard')" id="tab-standard">Basic<br>(S + V + C)</button>
+        <button class="tab-btn" onclick="setMode('continuous')" id="tab-continuous">Continuous<br>(S + Be + Ving + C)</button>
     </div>
 
     <div class="container">
         
         <div id="menuScreen">
-            <h2>Select your Year</h2>
+            <h2>Select Your Year</h2>
+            <p>100 Questions Challenge!</p>
             <div class="menu-grid">
                 <button class="level-btn y1" onclick="startGame(1)">Year 1</button>
                 <button class="level-btn y2" onclick="startGame(2)">Year 2</button>
@@ -217,218 +195,384 @@
             </div>
         </div>
 
-        <div id="gameScreen" class="game-area">
-            <h3 id="levelIndicator" style="color:#555;">Level 1 - Question 1</h3>
-            <p style="font-size: 18px;">Score: <span id="score" style="color:#d84315; font-weight:bold;">0</span></p>
+        <div id="gameScreen" style="display:none;">
+            <div class="game-header">
+                <div class="progress-box">Year <span id="yearDisplay">1</span> | Q: <span id="qNum">1</span>/100</div>
+                <div class="score-box">Score: <span id="score">0</span></div>
+            </div>
 
-            <div class="sentence-row" id="sentenceRow">
+            <div class="sentence-row" id="slotsContainer">
                 </div>
 
-            <div id="feedback" class="feedback"></div>
+            <div id="feedback"></div>
 
-            <div class="word-bank" id="wordBank"></div>
+            <div class="word-bank" id="wordBank" ondragover="allowDrop(event)" ondrop="dropBackToBank(event)">
+                </div>
 
-            <br>
-            <button class="nav-btn" id="homeBtn" onclick="showMenu()">🏠 Menu</button>
-            <button class="nav-btn" id="checkBtn" onclick="checkAnswer()">Check Answer</button>
-            <button class="nav-btn" id="nextBtn" onclick="nextQuestion()">Next Question ➡</button>
+            <div class="nav-area">
+                <button class="btn btn-home" onclick="showMenu()">🏠 Menu</button>
+                <button class="btn btn-check" id="checkBtn" onclick="checkAnswer()">Check Answer</button>
+                <button class="btn btn-next" id="nextBtn" onclick="nextQuestion()">Next Question ➡</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // --- DATA: STANDARD (S-V-C) ---
-        const dataStandard = {
-            1: [ { s: "I", v: "like", c: "apples" }, { s: "The cat", v: "is", c: "fat" } ],
-            2: [ { s: "My father", v: "washes", c: "the car" }, { s: "We", v: "play", c: "football" } ],
-            3: [ { s: "Ali", v: "brushes", c: "his teeth" }, { s: "They", v: "go", c: "to the library" } ],
-            4: [ { s: "The boy", v: "helped", c: "his mother" }, { s: "The turtle", v: "laid", c: "eggs" } ],
-            5: [ { s: "The prefects", v: "arranged", c: "the chairs" }, { s: "We", v: "eat", c: "healthy food" } ],
-            6: [ { s: "You", v: "must not", c: "litter here" }, { s: "Reading", v: "makes", c: "us smart" } ]
+        /* ================= GAME DATA ================= */
+        // We use arrays to randomly generate unique sentences for 100 questions.
+        
+        const VOCAB = {
+            1: {
+                s: ["I", "You", "He", "She", "The cat", "My mom", "Adam", "Siti", "The bird", "My dad"],
+                v: ["like", "have", "see", "want", "eat", "love", "kick", "read", "hug", "drink"],
+                c: ["apples", "a ball", "the car", "a book", "milk", "a doll", "the cat", "pizza", "water", "cake"],
+                s_be: ["I", "He", "She", "The cat", "My brother"],
+                be_s: ["am", "is", "is", "is", "is"], // Matches s_be index
+                ving: ["eating", "sitting", "sleeping", "playing", "reading"],
+                c_cont: ["an apple", "on a chair", "on the mat", "a game", "a book"]
+            },
+            2: {
+                s: ["My father", "The teacher", "We", "They", "A spider", "The boy", "The girl", "My sister", "The dog", "Ali"],
+                v: ["washes", "drives", "play", "clean", "has", "helps", "draws", "cooks", "chases", "buys"],
+                c: ["the car", "a van", "football", "the room", "eight legs", "his mother", "a picture", "lunch", "the ball", "candy"],
+                s_be: ["My father", "We", "They", "The cat", "Sarah"],
+                be_s: ["is", "are", "are", "is", "is"],
+                ving: ["washing", "playing", "cleaning", "sleeping", "cooking"],
+                c_cont: ["the car", "football", "the room", "on the bed", "dinner"]
+            },
+            3: {
+                s: ["The rabbit", "My friend", "Our class", "The tiger", "Elephants", "The headmaster", "A pilot", "Doctors", "Farmers", "The baby"],
+                v: ["eats", "visits", "borrows", "hunts", "have", "gives", "flies", "help", "grow", "cries"],
+                c: ["carrots", "the zoo", "books", "deer", "big ears", "a speech", "planes", "sick people", "vegetables", "loudly"],
+                s_be: ["The rabbit", "The boys", "My teacher", "The tiger", "We"],
+                be_s: ["is", "are", "is", "is", "are"],
+                ving: ["eating", "running", "writing", "hunting", "going"],
+                c_cont: ["a carrot", "fast", "on the board", "for food", "to the library"]
+            },
+            4: {
+                s: ["The turtle", "The tourists", "Yesterday I", "The prefects", "My neighbor", "The fisherman", "We", "The queen", "A soldier", "The chef"],
+                v: ["laid", "visited", "played", "cleaned", "helped", "caught", "celebrated", "lived", "protected", "cooked"],
+                c: ["eggs", "Cherating", "badminton", "the hall", "me", "a big fish", "Teachers Day", "in a castle", "the country", "curry"],
+                s_be: ["The turtle", "The tourists", "The fisherman", "We", "The prefects"],
+                be_s: ["is", "are", "is", "are", "are"],
+                ving: ["laying", "visiting", "catching", "cleaning", "arranging"],
+                c_cont: ["eggs", "the beach", "fish", "the classroom", "chairs"]
+            },
+            5: {
+                s: ["Malaysians", "We", "The students", "The internet", "Reading", "Parents", "Drivers", "Teachers", "Friends", "Heroes"],
+                v: ["love", "must eat", "study", "helps", "makes", "should love", "must drive", "teach", "share", "save"],
+                c: ["Nasi Lemak", "healthy food", "hard", "us learn", "us smart", "their children", "carefully", "pupils", "toys", "people"],
+                s_be: ["The students", "The driver", "We", "Malaysians", "The chef"],
+                be_s: ["are", "is", "are", "are", "is"],
+                ving: ["studying", "driving", "eating", "celebrating", "cooking"],
+                c_cont: ["for exams", "carefully", "vegetables", "Merdeka", "delicious food"]
+            },
+            6: {
+                s: ["The villagers", "We", "Pollution", "You", "Hard work", "The future", "Astronauts", "Robots", "Kindness", "Unity"],
+                v: ["will clean", "will save", "harms", "must not", "brings", "will be", "explore", "will help", "makes", "makes"],
+                c: ["the beach", "the turtles", "nature", "litter", "success", "bright", "space", "humans", "friends", "us strong"],
+                s_be: ["The villagers", "We", "The government", "Scientists", "Robots"],
+                be_s: ["are", "are", "is", "are", "are"],
+                ving: ["cleaning", "saving", "building", "inventing", "helping"],
+                c_cont: ["the river", "money", "new roads", "medicines", "humans"]
+            }
         };
 
-        // --- DATA: CONTINUOUS (S-Be-Ving-C) ---
-        const dataContinuous = {
-            1: [ { s: "I", be: "am", ving: "eating", c: "an apple" }, { s: "He", be: "is", ving: "sitting", c: "on a chair" } ],
-            2: [ { s: "The cat", be: "is", ving: "sleeping", c: "on the mat" }, { s: "We", be: "are", ving: "playing", c: "football" } ],
-            3: [ { s: "The teacher", be: "is", ving: "writing", c: "on the board" }, { s: "Ali and Abu", be: "are", ving: "running", c: "fast" } ],
-            4: [ { s: "My mother", be: "is", ving: "cooking", c: "curry" }, { s: "The boys", be: "are", ving: "swimming", c: "in the sea" } ],
-            5: [ { s: "The prefects", be: "are", ving: "standing", c: "in the hall" }, { s: "The headmaster", be: "is", ving: "giving", c: "a speech" } ],
-            6: [ { s: "The villagers", be: "are", ving: "cleaning", c: "the beach" }, { s: "We", be: "are", ving: "saving", c: "the turtles" } ]
-        };
-
-        // GAME STATE
-        let mode = 'standard'; // 'standard' or 'continuous'
+        /* ================= GAME LOGIC ================= */
+        let currentMode = 'standard';
         let currentYear = 1;
-        let qIndex = 0;
+        let qCount = 1;
         let score = 0;
-        let selection = {};
+        let currentQuestion = {};
 
-        // Switch Modes
-        function switchMode(newMode) {
-            mode = newMode;
-            // Update Tabs UI
-            document.getElementById('tab-standard').className = mode === 'standard' ? 'tab-btn active' : 'tab-btn';
-            document.getElementById('tab-continuous').className = mode === 'continuous' ? 'tab-btn active' : 'tab-btn';
-            
-            // Update Subtitle
-            document.getElementById('modeSubtitle').innerText = mode === 'standard' 
-                ? "Basic Sentence Builder" 
-                : "Continuous Tense Challenge";
-
+        function setMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`tab-${mode}`).classList.add('active');
+            document.getElementById('modeSubtitle').innerText = mode === 'standard' ? "Basic Sentence Builder" : "Continuous Tense Challenge";
             showMenu();
         }
 
         function showMenu() {
             document.getElementById('menuScreen').style.display = 'block';
             document.getElementById('gameScreen').style.display = 'none';
-            score = 0;
-            document.getElementById('score').innerText = "0";
         }
 
         function startGame(year) {
             currentYear = year;
-            qIndex = 0;
+            qCount = 1;
             score = 0;
             document.getElementById('score').innerText = "0";
             document.getElementById('menuScreen').style.display = 'none';
             document.getElementById('gameScreen').style.display = 'block';
-            
-            loadQuestion();
+            document.getElementById('yearDisplay').innerText = year;
+            generateQuestion();
         }
 
-        function loadQuestion() {
-            // Select data based on mode
-            const dataSet = (mode === 'standard') ? dataStandard : dataContinuous;
-            const yearData = dataSet[currentYear] || dataSet[1]; 
-
-            if (qIndex >= yearData.length) {
-                document.getElementById('feedback').innerText = "Level Complete! 🎉";
-                document.getElementById('wordBank').innerHTML = `<button class="nav-btn" onclick="showMenu()">Back to Menu</button>`;
-                document.getElementById('checkBtn').style.display = 'none';
-                document.getElementById('nextBtn').style.display = 'none';
-                return;
-            }
-
-            const q = yearData[qIndex];
-            document.getElementById('levelIndicator').innerText = `Year ${currentYear} - Question ${qIndex + 1}`;
+        function generateQuestion() {
+            // Update UI
+            document.getElementById('qNum').innerText = qCount;
+            document.getElementById('feedback').innerText = "";
             document.getElementById('checkBtn').style.display = 'inline-block';
             document.getElementById('nextBtn').style.display = 'none';
-            document.getElementById('feedback').innerText = "";
+            
+            const data = VOCAB[currentYear];
+            let q = {};
 
-            // --- 1. BUILD SLOTS ---
-            const row = document.getElementById('sentenceRow');
-            row.innerHTML = "";
-            selection = {};
+            // 1. GENERATE SENTENCE
+            // We use math.random to pick compatible parts. 
+            // Note: For simplicity in this demo, we pick random index for S, V, C. 
+            // In a real app, you might want strict mapping, but for primary school, S+V+C often works loosely (e.g. Ali + likes + apples).
+            
+            const randIndex = Math.floor(Math.random() * 5); // Pick from first 5 for tight correlation, or 10 for loose
 
-            if (mode === 'standard') {
-                createSlot(row, 's', 'Subject');
-                createSlot(row, 'v', 'Verb');
-                createSlot(row, 'c', 'Complement');
+            if (currentMode === 'standard') {
+                // Pick random S, V, C independently to create variety, but ensure S-V agreement is mostly generic or matched by index
+                // To ensure 100% grammar, we strictly match index for V and C, but randomize S if possible.
+                // Here we match index to guarantee grammar correctness.
+                const idx = Math.floor(Math.random() * data.s.length); 
+                q = { 
+                    parts: [
+                        {id: 's', txt: data.s[idx], label: 'Subject'},
+                        {id: 'v', txt: data.v[idx], label: 'Verb'},
+                        {id: 'c', txt: data.c[idx], label: 'Complement'}
+                    ]
+                };
             } else {
-                createSlot(row, 's', 'Subject');
-                createSlot(row, 'be', 'Verb-to-be');
-                createSlot(row, 'ving', 'Verb-ing');
-                createSlot(row, 'c', 'Complement');
+                // Continuous: S + Be + Ving + C
+                // We must match S to Be (singular/plural).
+                const idx = Math.floor(Math.random() * data.s_be.length);
+                q = {
+                    parts: [
+                        {id: 's', txt: data.s_be[idx], label: 'Subject'},
+                        {id: 'be', txt: data.be_s[idx], label: 'Verb-to-be'},
+                        {id: 'ving', txt: data.ving[idx], label: 'Verb-ing'},
+                        {id: 'c', txt: data.c_cont[idx], label: 'Complement'}
+                    ]
+                };
             }
+            currentQuestion = q;
 
-            // --- 2. BUILD WORD BANK ---
-            let words = [];
-            if (mode === 'standard') {
-                words = [ {t: q.s, k:'s'}, {t: q.v, k:'v'}, {t: q.c, k:'c'} ];
-            } else {
-                words = [ {t: q.s, k:'s'}, {t: q.be, k:'be'}, {t: q.ving, k:'ving'}, {t: q.c, k:'c'} ];
+            // 2. BUILD SLOTS
+            const slotsContainer = document.getElementById('slotsContainer');
+            slotsContainer.innerHTML = '';
+            q.parts.forEach(part => {
+                const slot = document.createElement('div');
+                slot.className = 'slot';
+                slot.setAttribute('data-label', part.label);
+                slot.setAttribute('data-expect', part.txt);
+                slot.id = 'slot-' + part.id;
+                
+                // Drag Events for Slot
+                slot.addEventListener('dragover', allowDrop);
+                slot.addEventListener('drop', dropInSlot);
+                slot.addEventListener('click', clearSlotOnClick); // Click to remove
+                
+                slotsContainer.appendChild(slot);
+            });
+
+            // 3. BUILD WORD BANK (Correct words + 2 Distractors)
+            const wordBank = document.getElementById('wordBank');
+            wordBank.innerHTML = '';
+            
+            let words = q.parts.map(p => ({txt: p.txt, type: 'correct'}));
+            
+            // Add distractors based on level
+            if (currentYear > 2) {
+                words.push({txt: "run", type: 'wrong'});
+                words.push({txt: "eated", type: 'wrong'});
             }
-
+            
             // Shuffle
             words.sort(() => Math.random() - 0.5);
 
-            const bank = document.getElementById('wordBank');
-            bank.innerHTML = "";
-            words.forEach(w => {
-                const btn = document.createElement('button');
-                btn.className = 'word-chip';
-                btn.innerText = w.t;
-                btn.onclick = () => handleWordClick(w, btn);
-                bank.appendChild(btn);
+            words.forEach((w, i) => {
+                const el = document.createElement('div');
+                el.className = 'draggable';
+                el.innerText = w.txt;
+                el.id = 'word-' + i;
+                el.draggable = true;
+                
+                // Drag Events
+                el.addEventListener('dragstart', dragStart);
+                
+                // Touch Events (Mobile Support)
+                el.addEventListener('touchstart', touchStart, {passive: false});
+                el.addEventListener('touchmove', touchMove, {passive: false});
+                el.addEventListener('touchend', touchEnd);
+
+                wordBank.appendChild(el);
             });
         }
 
-        function createSlot(container, key, label) {
-            const div = document.createElement('div');
-            div.className = 'slot';
-            div.id = `slot-${key}`;
-            div.setAttribute('data-type', label);
-            div.innerText = "?";
-            container.appendChild(div);
+        /* ================= DRAG & DROP FUNCTIONS ================= */
+        let draggedItem = null;
+
+        function dragStart(e) {
+            draggedItem = e.target;
+            e.dataTransfer.setData("text/plain", e.target.id);
+            setTimeout(() => e.target.style.opacity = '0.5', 0);
         }
 
-        function handleWordClick(wordObj, btn) {
-            // Determine order based on mode
-            const order = (mode === 'standard') 
-                ? ['s', 'v', 'c'] 
-                : ['s', 'be', 'ving', 'c'];
-
-            // Find first empty slot
-            for (let key of order) {
-                if (!selection[key]) {
-                    selection[key] = wordObj.t;
-                    const slot = document.getElementById(`slot-${key}`);
-                    slot.innerText = wordObj.t;
-                    slot.classList.add('filled');
-                    
-                    // Specific coloring for filled slots
-                    if(key === 'be') slot.style.backgroundColor = '#fff3e0';
-                    if(key === 'ving') slot.style.backgroundColor = '#e0f2f1';
-
-                    btn.style.visibility = 'hidden';
-                    return;
-                }
+        function allowDrop(e) {
+            e.preventDefault();
+            if(e.target.classList.contains('slot')) {
+                e.target.classList.add('hovered');
             }
         }
 
-        function checkAnswer() {
-            const dataSet = (mode === 'standard') ? dataStandard : dataContinuous;
-            const q = dataSet[currentYear][qIndex];
-            const feedback = document.getElementById('feedback');
+        function dropInSlot(e) {
+            e.preventDefault();
+            e.target.classList.remove('hovered');
             
-            let isCorrect = false;
+            // Identify Target Slot
+            let slot = e.target;
+            // If dropped on a word inside a slot, find the parent slot
+            if (!slot.classList.contains('slot')) {
+                slot = slot.closest('.slot');
+            }
+            if (!slot) return;
 
-            if (mode === 'standard') {
-                if (selection.s === q.s && selection.v === q.v && selection.c === q.c) isCorrect = true;
-            } else {
-                if (selection.s === q.s && selection.be === q.be && selection.ving === q.ving && selection.c === q.c) isCorrect = true;
+            // Get the dragged element
+            const id = e.dataTransfer.getData("text/plain");
+            const item = document.getElementById(id);
+
+            // Logic: If slot is full, move existing item back to bank? 
+            // Or replace? Let's Swap/Replace.
+            if (slot.children.length > 0) {
+                // Move existing child back to bank
+                const existing = slot.children[0];
+                document.getElementById('wordBank').appendChild(existing);
             }
 
-            if (isCorrect) {
-                feedback.innerText = "Correct! Well done, Dr Saufi's student! ✅";
-                feedback.className = "feedback correct";
+            slot.appendChild(item);
+            item.style.opacity = '1';
+            slot.classList.add('filled');
+        }
+
+        function dropBackToBank(e) {
+            e.preventDefault();
+            const id = e.dataTransfer.getData("text/plain");
+            const item = document.getElementById(id);
+            
+            // Remove 'filled' class from the slot it came from
+            if(item.parentElement.classList.contains('slot')){
+                item.parentElement.classList.remove('filled');
+            }
+            
+            document.getElementById('wordBank').appendChild(item);
+            item.style.opacity = '1';
+        }
+
+        // Helper: Click slot to return word (easier than dragging out sometimes)
+        function clearSlotOnClick(e) {
+            if(e.target.classList.contains('draggable')) {
+                // If clicking the word inside slot
+                const item = e.target;
+                const slot = item.parentElement;
+                document.getElementById('wordBank').appendChild(item);
+                slot.classList.remove('filled');
+            }
+        }
+
+        /* ================= TOUCH SUPPORT (MOBILE) ================= */
+        let touchSrc = null;
+
+        function touchStart(e) {
+            touchSrc = e.target;
+            touchSrc.style.opacity = '0.5';
+        }
+
+        function touchMove(e) {
+            e.preventDefault(); // Prevent scrolling while dragging
+            const touch = e.touches[0];
+            touchSrc.style.position = 'absolute';
+            touchSrc.style.left = (touch.clientX - 50) + 'px';
+            touchSrc.style.top = (touch.clientY - 25) + 'px';
+            touchSrc.style.zIndex = '1000';
+        }
+
+        function touchEnd(e) {
+            const touch = e.changedTouches[0];
+            touchSrc.style.opacity = '1';
+            touchSrc.style.position = 'static';
+            touchSrc.style.zIndex = '100';
+
+            // Check what is underneath
+            const elemBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+            const slot = elemBelow ? elemBelow.closest('.slot') : null;
+            const bank = elemBelow ? elemBelow.closest('.word-bank') : null;
+
+            if (slot) {
+                if (slot.children.length > 0) {
+                    document.getElementById('wordBank').appendChild(slot.children[0]);
+                }
+                slot.appendChild(touchSrc);
+                slot.classList.add('filled');
+            } else if (bank) {
+                if(touchSrc.parentElement.classList.contains('slot')) {
+                    touchSrc.parentElement.classList.remove('filled');
+                }
+                bank.appendChild(touchSrc);
+            } else {
+                // Snap back if dropped nowhere
+                // (Already handled by static position reset)
+            }
+        }
+
+        /* ================= CHECK ANSWER ================= */
+        function checkAnswer() {
+            let correctCount = 0;
+            const slots = document.querySelectorAll('.slot');
+            let total = slots.length;
+
+            slots.forEach(slot => {
+                const expected = slot.getAttribute('data-expect');
+                if (slot.children.length > 0) {
+                    const actual = slot.children[0].innerText;
+                    if (actual === expected) {
+                        slot.classList.add('correct');
+                        slot.classList.remove('wrong');
+                        correctCount++;
+                    } else {
+                        slot.classList.add('wrong');
+                        slot.classList.remove('correct');
+                    }
+                } else {
+                    slot.classList.add('wrong');
+                }
+            });
+
+            const fb = document.getElementById('feedback');
+            if (correctCount === total) {
+                fb.innerText = "Correct! Great job! 🎉";
+                fb.style.color = "green";
                 score += 10;
                 document.getElementById('score').innerText = score;
                 document.getElementById('checkBtn').style.display = 'none';
                 document.getElementById('nextBtn').style.display = 'inline-block';
             } else {
-                feedback.innerText = "Try again! ❌";
-                feedback.className = "feedback wrong";
+                fb.innerText = "Oops! Try again.";
+                fb.style.color = "red";
+                // Reset colors after 2s
                 setTimeout(() => {
-                    // Reset slots only
-                    selection = {};
-                    const slots = document.querySelectorAll('.slot');
                     slots.forEach(s => {
-                        s.innerText = "?";
-                        s.classList.remove('filled');
-                        s.style.backgroundColor = "#f5f5f5"; // Reset color
+                        s.classList.remove('correct', 'wrong');
                     });
-                    // Show all buttons
-                    const btns = document.querySelectorAll('.word-chip');
-                    btns.forEach(b => b.style.visibility = 'visible');
-                    feedback.innerText = "";
-                }, 1000);
+                }, 2000);
             }
         }
 
         function nextQuestion() {
-            qIndex++;
-            loadQuestion();
+            if (qCount < 100) {
+                qCount++;
+                generateQuestion();
+            } else {
+                document.getElementById('slotsContainer').innerHTML = "<h2>🎉 You finished 100 Questions! 🎉</h2>";
+                document.getElementById('wordBank').style.display = 'none';
+                document.getElementById('checkBtn').style.display = 'none';
+                document.getElementById('nextBtn').style.display = 'none';
+            }
         }
 
     </script>
