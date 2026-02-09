@@ -6,175 +6,48 @@
     <title>Writing is Fun with Dr Saufi</title>
     <style>
         /* --- CORE STYLES --- */
-        body {
-            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial', sans-serif;
-            background-color: #e0f7fa;
-            text-align: center;
-            padding: 10px;
-            margin: 0;
-            user-select: none;
-            overflow-x: hidden;
-        }
-
-        h1.main-title {
-            color: #d84315;
-            font-size: 1.8rem;
-            margin: 10px 0;
-            text-shadow: 2px 2px 0px #ffccbc;
-        }
-
-        /* --- LOGIN & SEARCH STYLES --- */
-        .login-container {
-            background: white;
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        .search-wrapper { position: relative; width: 100%; margin-bottom: 15px; }
+        body { font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial', sans-serif; background-color: #e0f7fa; text-align: center; padding: 10px; margin: 0; user-select: none; overflow-x: hidden; }
+        h1.main-title { color: #d84315; font-size: 1.8rem; margin: 10px 0; text-shadow: 2px 2px 0px #ffccbc; }
         
-        .student-input {
-            width: 90%;
-            padding: 15px;
-            font-size: 16px;
-            border: 2px solid #b0bec5;
-            border-radius: 10px;
-            outline: none;
-            text-transform: uppercase;
-        }
+        /* --- LOGIN & SEARCH --- */
+        .login-container { background: white; max-width: 600px; margin: 20px auto; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .search-wrapper { position: relative; width: 100%; margin-bottom: 15px; }
+        .student-input { width: 90%; padding: 15px; font-size: 16px; border: 2px solid #b0bec5; border-radius: 10px; outline: none; text-transform: uppercase; }
         .student-input:focus { border-color: #29b6f6; box-shadow: 0 0 8px rgba(41, 182, 246, 0.3); }
-
-        .dropdown-list {
-            position: absolute;
-            top: 100%; left: 0; right: 0;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 0 0 10px 10px;
-            max-height: 250px;
-            overflow-y: auto;
-            z-index: 1000;
-            display: none;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            text-align: left;
-        }
-
-        .dropdown-item {
-            padding: 10px 15px;
-            cursor: pointer;
-            border-bottom: 1px solid #eee;
-            color: #333;
-            font-size: 14px;
-        }
+        .dropdown-list { position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #ddd; border-radius: 0 0 10px 10px; max-height: 250px; overflow-y: auto; z-index: 1000; display: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: left; }
+        .dropdown-item { padding: 10px 15px; cursor: pointer; border-bottom: 1px solid #eee; color: #333; font-size: 14px; }
         .dropdown-item:hover { background-color: #e1f5fe; color: #0277bd; }
-        .dropdown-item strong { color: #d84315; display:block; }
-
-        .class-display {
-            margin-top: 15px;
-            font-size: 1.2rem;
-            color: #006064;
-            font-weight: bold;
-            min-height: 30px;
-            padding: 10px;
-            background: #f1f8e9;
-            border-radius: 8px;
-            display:none;
-        }
+        .class-display { margin-top: 15px; font-size: 1.2rem; color: #006064; font-weight: bold; min-height: 30px; padding: 10px; background: #f1f8e9; border-radius: 8px; display:none; }
 
         /* --- GAME UI --- */
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            min-height: 500px;
-            display: none;
-        }
-
-        .game-header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 10px; 
-            background: #f1f8e9;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-        
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); min-height: 500px; display: none; }
+        .game-header { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #f1f8e9; border-radius: 10px; margin-bottom: 20px; }
         .player-info { text-align: left; font-size: 14px; color: #555; line-height: 1.4; font-weight: bold;}
         .lives-box { font-size: 24px; color: #e53935; letter-spacing: 5px; }
-        
-        .timer-box {
-            background-color: #263238;
-            color: #fff;
-            padding: 8px 18px;
-            border-radius: 50px;
-            font-size: 22px;
-            font-weight: bold;
-            border: 3px solid #cfd8dc;
-            min-width: 40px;
-        }
+        .timer-box { background-color: #263238; color: #fff; padding: 8px 18px; border-radius: 50px; font-size: 22px; font-weight: bold; border: 3px solid #cfd8dc; min-width: 40px; }
         .timer-warning { background-color: #c62828; animation: pulse 0.8s infinite; }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
 
-        /* --- SLOTS & DRAGGABLES --- */
-        .sentence-row {
-            display: flex; justify-content: center; gap: 8px; margin: 20px 0; flex-wrap: wrap; min-height: 90px;
-        }
-
-        .slot {
-            width: 140px; height: 75px;
-            border: 2px dashed #b0bec5; border-radius: 12px;
-            background-color: #eceff1;
-            display: flex; align-items: center; justify-content: center;
-            position: relative; margin-top: 25px;
-        }
-
-        .slot::before {
-            content: attr(data-label);
-            position: absolute; top: -25px; left: 0; right: 0;
-            font-size: 12px; color: white; font-weight: bold;
-            padding: 4px; border-radius: 5px; text-transform: uppercase;
-        }
-
+        /* --- SLOTS & DRAG --- */
+        .sentence-row { display: flex; justify-content: center; gap: 8px; margin: 20px 0; flex-wrap: wrap; min-height: 90px; }
+        .slot { width: 140px; height: 75px; border: 2px dashed #b0bec5; border-radius: 12px; background-color: #eceff1; display: flex; align-items: center; justify-content: center; position: relative; margin-top: 25px; }
+        .slot::before { content: attr(data-label); position: absolute; top: -25px; left: 0; right: 0; font-size: 12px; color: white; font-weight: bold; padding: 4px; border-radius: 5px; text-transform: uppercase; }
         .slot[data-type="s"]::before { background-color: #2196f3; }
         .slot[data-type="v"]::before { background-color: #ff9800; }
         .slot[data-type="c"]::before { background-color: #4caf50; }
-
         .slot.filled { border-style: solid; background-color: white; }
         
-        .word-bank {
-            display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
-            margin-top: 20px; padding: 15px; background: #fafafa;
-            border-radius: 15px; min-height: 80px; border: 2px solid #eee;
-        }
-
-        .draggable {
-            background-color: #0277bd; color: white; padding: 10px 15px;
-            font-size: 16px; border-radius: 8px; cursor: grab;
-            box-shadow: 0 4px 0 #01579b; z-index: 100; touch-action: none;
-        }
+        .word-bank { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 20px; padding: 15px; background: #fafafa; border-radius: 15px; min-height: 80px; border: 2px solid #eee; }
+        .draggable { background-color: #0277bd; color: white; padding: 10px 15px; font-size: 16px; border-radius: 8px; cursor: grab; box-shadow: 0 4px 0 #01579b; z-index: 100; touch-action: none; }
         .draggable:active { transform: scale(0.95); }
 
-        /* --- BUTTONS & OVERLAYS --- */
-        .btn {
-            padding: 12px 30px; font-size: 20px; border: none; border-radius: 10px;
-            cursor: pointer; color: white; margin: 10px; box-shadow: 0 4px 0 rgba(0,0,0,0.2);
-        }
+        /* --- BUTTONS --- */
+        .btn { padding: 12px 30px; font-size: 20px; border: none; border-radius: 10px; cursor: pointer; color: white; margin: 10px; box-shadow: 0 4px 0 rgba(0,0,0,0.2); }
         .btn-start { background-color: #43a047; width: 100%; display: none; }
         .btn-check { background-color: #fb8c00; }
         .btn-new { background-color: #1976d2; }
 
-        .overlay {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(255,255,255,0.95);
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            border-radius: 15px; z-index: 2000;
-        }
+        .overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.95); display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 15px; z-index: 2000; }
     </style>
 </head>
 <body>
@@ -184,20 +57,17 @@
     <div id="loginScreen" class="login-container">
         <h2>Student Login</h2>
         <p>Type your name to find your class:</p>
-        
         <div class="search-wrapper">
             <input type="text" id="studentInput" class="student-input" placeholder="SEARCH NAME HERE..." oninput="filterStudents()">
             <div id="dropdownList" class="dropdown-list"></div>
         </div>
-
         <div id="classDisplay" class="class-display"></div>
         <button id="startBtn" class="btn btn-start" onclick="initGame()">START GAME ▶</button>
         <br><br>
-        <small style="color:#999;">Database loaded with SK Cherating students (Year 1-6)</small>
+        <small style="color:#777">Ver 3.0 (Smart Grammar + Save to Sheet)</small>
     </div>
 
     <div id="gameScreen" class="container">
-        
         <div class="game-header">
             <div class="player-info">
                 NAME: <span id="pName" style="color:#d84315;">-</span><br>
@@ -206,14 +76,11 @@
             <div class="timer-box" id="timerDisplay">30</div>
             <div class="lives-box" id="livesDisplay">❤❤❤</div>
         </div>
-
         <div style="margin-bottom:10px; font-weight:bold; color:#78909c;">
             Question: <span id="qNum">1</span> | Score: <span id="score">0</span>
         </div>
-
         <div class="sentence-row" id="slotsContainer"></div>
         <div class="word-bank" id="wordBank" ondragover="allowDrop(event)" ondrop="dropBackToBank(event)"></div>
-
         <div class="nav-area">
             <button class="btn btn-check" onclick="checkAnswer()">Check Answer</button>
         </div>
@@ -227,30 +94,33 @@
             <h1 style="color:#c62828; font-size:3rem;">GAME OVER</h1>
             <h3>Good job, <span id="goName"></span>!</h3>
             <p>Final Score: <span id="goScore" style="font-size:2rem; font-weight:bold; color:#2e7d32;"></span></p>
+            <p id="saveStatus" style="color:#555; font-style:italic;">Saving score...</p>
             <button class="btn btn-new" onclick="resetGame()">Next Student ➡</button>
         </div>
     </div>
 
     <script>
-        /* ================= 1. MASSIVE STUDENT DATABASE ================= */
+        // --- 1. GOOGLE SHEET CONFIGURATION ---
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxOi2QGNdogGvwGZxBhivuD816CjWxJhw2SNQENT0GPBDY4lwY6Fx8EmHb1Mn-rH730/exec"; 
+
+        /* ================= STUDENT DATABASE ================= */
         const STUDENT_DB = [
             // YEAR 1
             {n:"ABDUL RAYYAN MIKAIL BIN ABDUL RASHID", c:"1 AL BIRUNI"},{n:"AHMAD DANISH AQEEL BIN AHMAD BARDAIN", c:"1 AL BIRUNI"},{n:"KHALISH NAUFAL BIN KHAIRUL ARMAN", c:"1 AL BIRUNI"},{n:"MOHAMAD AMMAR IRFAN BIN MOHAMAD SYARAFUDDIN", c:"1 AL BIRUNI"},{n:"MOHAMAD ZULFAN NAIM KHALISH BIN MOHD ZULKARNAIN", c:"1 AL BIRUNI"},{n:"MUHAMAD AFEEF ILYAS BIN MUHAMAD GHADAFFI", c:"1 AL BIRUNI"},{n:"MUHAMAD NAQIB RASYDAN BIN MOHAMAD RASYID", c:"1 AL BIRUNI"},{n:"MUHAMMAD ADYAN NAUFAL BIN ABDUL HANIF", c:"1 AL BIRUNI"},{n:"MUHAMMAD AISY FIRDAUS BIN MUHAMAAD FITRI", c:"1 AL BIRUNI"},{n:"MUHAMMAD DAYYAN ZAFFRAN BIN ABDULLAH", c:"1 AL BIRUNI"},{n:"MUHAMMAD FIRAS RIZQI BIN MUHD FADZLI", c:"1 AL BIRUNI"},{n:"MUHAMMAD IRFAN NAUFAL BIN MUHAMMAD ILYAS", c:"1 AL BIRUNI"},{n:"MUHAMMAD NUH RIFQI BIN AHMAD BAZLI", c:"1 AL BIRUNI"},{n:"MUHAMMAD RIZWAN HAQIMIE BIN ABDUL MUZIL", c:"1 AL BIRUNI"},{n:"MUHAMMAD UMAR AL-KHATTAB BIN MUHAMMAD FIRDAUS", c:"1 AL BIRUNI"},{n:"MUHAMMAD UMAR SHARIF BIN ZUL", c:"1 AL BIRUNI"},{n:"WAN MUHAMMAD AMZAR BIN WAN AZMAN", c:"1 AL BIRUNI"},{n:"ALYA ADRIANA BINTI MOHD RIZUAN", c:"1 AL BIRUNI"},{n:"HANA MEDINA BINTI MOHD. AIMAN NURHAKIM", c:"1 AL BIRUNI"},{n:"KYAYRA NADEERA HAURA BINTI MOHAMAD KHAIRUL NIZAM", c:"1 AL BIRUNI"},{n:"NAURA AISYAH BINTI MOHD ASRI", c:"1 AL BIRUNI"},{n:"NOR AIRA JANNAH BINTI MOHD ASNAWI", c:"1 AL BIRUNI"},{n:"NUR AAIRA QAISARA BINTI MOHD RIZAL", c:"1 AL BIRUNI"},{n:"NUR AIRA AMANI BINTI ALIAS", c:"1 AL BIRUNI"},{n:"NUR ASSYIFA HANEEM BINTI MOHD IKBAL HAKIM", c:"1 AL BIRUNI"},{n:"NUR AYRA AISYAH BINTI MOHD KHAIRI", c:"1 AL BIRUNI"},{n:"NUR FATHIA NAYLA BINTI MUHAMMAD YUSRI", c:"1 AL BIRUNI"},{n:"NUR HUMAIRA BINTI MUHD LUQMAN", c:"1 AL BIRUNI"},{n:"NUR JASMINE HANA MEDINA BINTI HIZWAN FAZRI", c:"1 AL BIRUNI"},{n:"NUR QALESYA BINTI YUSOF", c:"1 AL BIRUNI"},{n:"NUR SOFEA MEDINA BINTI MOHD SYUFIAN", c:"1 AL BIRUNI"},{n:"NURDIYANA AWFIYAH BINTI ZULKIFLI", c:"1 AL BIRUNI"},{n:"PUTERI EILYANA BINTI MUHAMMAD SHAFID", c:"1 AL BIRUNI"},{n:"ROS AMIRA SAFIYA BINTI ABDULLAH", c:"1 AL BIRUNI"},{n:"SITI SABARISHA BINTI MOHD SALEH", c:"1 AL BIRUNI"},{n:"SITI NORAAFIYAH INSYIRAH BT ABU HASSAN", c:"1 AL BIRUNI"},
             {n:"ADAM DANIEL BIN MOHD SUKRI", c:"1 AL FARABI"},{n:"DANIAL NUQMAN BIN ABDUL HANIF SAFWAN", c:"1 AL FARABI"},{n:"MOHAMAD MIQAEL BIN MOHAMAD FAIZIE", c:"1 AL FARABI"},{n:"MOHAMAD ZULFAQAR BIN MOHAMAD NAKIAH", c:"1 AL FARABI"},{n:"MUHAMAD ANAS MIKAIL BIN MUHAMAD NASSRUDIN", c:"1 AL FARABI"},{n:"MUHAMMAD ADAM BIN ABDUL RAUFF", c:"1 AL FARABI"},{n:"MUHAMMAD ALIFF NAUFAL BIN ZULNIZAN", c:"1 AL FARABI"},{n:"MUHAMMAD AQIB BIN MOHD ZAMZIRO", c:"1 AL FARABI"},{n:"MUHAMMAD ELMAN AUS BIN MOHD ADILA", c:"1 AL FARABI"},{n:"MUHAMMAD IMAN NAUFAL BIN ABDUL FATTAH", c:"1 AL FARABI"},{n:"MUHAMMAD IZZ AYAAZ BIN MOHD NAZARUDI", c:"1 AL FARABI"},{n:"MUHAMMAD SYAKIR NASRAN BIN MUHAMAD SHAZUAN", c:"1 AL FARABI"},{n:"NOAH MIQAEL BIN MOHAMMAD KHAIRIL MUZAFFAR", c:"1 AL FARABI"},{n:"NOR AISY ZUFAR BIN NOR ZULHAIRIE", c:"1 AL FARABI"},{n:"NUR MUHAMMAD AAFI MUSLIM BIN ARIF FADILLAH", c:"1 AL FARABI"},{n:"WAN MUHAMMAD HARITH BIN WAN MOHD FAHMI NASRI", c:"1 AL FARABI"},{n:"ZAYYAN AAKIF BIN MOHAMAD ZULAZLAN", c:"1 AL FARABI"},{n:"ADRIANA AMANDA A/P JEFFRY", c:"1 AL FARABI"},{n:"ATHIA ZARA BINTI MOHD ZAKI", c:"1 AL FARABI"},{n:"HAURA HASNA BINTI MOHD SHASRUL HASRA", c:"1 AL FARABI"},{n:"MARYAM FATHIYYAH BINTI ABD ZUKHRUFUDDIN", c:"1 AL FARABI"},{n:"NIA QALESYA BINTI MOHAMAD AZWAN IFRAM", c:"1 AL FARABI"},{n:"NOOR SYAFILA NATASYA BINTI ABD MALIK", c:"1 AL FARABI"},{n:"NUR AFEEYA FAQIHAH BINTI MOHAMAD FARID", c:"1 AL FARABI"},{n:"NUR AIREEN MEDINA BINTI AHMAD AIZAT", c:"1 AL FARABI"},{n:"NUR ATIYA AILEEN BINTI MOHD SOBRE", c:"1 AL FARABI"},{n:"NUR AZZAHRA SAFIYYAH BINTI MOHD SIDEK", c:"1 AL FARABI"},{n:"NUR FATIHAH AMALIA BINTI MOHD ROSNI", c:"1 AL FARABI"},{n:"NUR HUMAIRA BINTI ABDUL MUEIZ", c:"1 AL FARABI"},{n:"NUR QISYA ZAHRA BINTI ROIS", c:"1 AL FARABI"},{n:"NUR SYAHIRAH SOLEHAH BINTI BADRUL HISYAM", c:"1 AL FARABI"},{n:"NURIN AMNA HUWAIDA BINTI MOHD ROKMAN", c:"1 AL FARABI"},{n:"QHADEEJA AINNUR MEDINA BINTI ANWAR SHAFIQ", c:"1 AL FARABI"},{n:"SITI AFIA MIKAYLA BINTI SH.FIZULREZUAN", c:"1 AL FARABI"},{n:"TENGKU TEH ANNISAA BINTI TENGKU MOHD IKMAN HANIFF", c:"1 AL FARABI"},{n:"WAN AISYAH NABILAH BINTI WAN MOHAMAD HAFIQ", c:"1 AL FARABI"},{n:"WAN IMAN SAFA BINTI WAN MOHAMMAD SHUKRI", c:"1 AL FARABI"},
-            {n:"ADAM MUQRI BIN MOHD ZAIMI", c:"1 AL KINDI"},{n:"AHMAD NAUFAL BIN AHMAD NASRI", c:"1 AL KINDI"},{n:"AR RAYYAN MAULANA BIN ABDUL SALAM", c:"1 AL KINDI"},{n:"MOHAMAD PUTERA RAMADHAN BIN ASRAH @ SHAFIE", c:"1 AL KINDI"},{n:"MOHAMMAD HAFIZOL BIN MOHD SHAIFUDDIN", c:"1 AL KINDI"},{n:"MUHAMAD ANAS MIKHAIL BIN ABDULLAH", c:"1 AL KINDI"},{n:"MUHAMMAD ADAM FARIS BIN MUHAMMAD JEFRI", c:"1 AL KINDI"},{n:"MUHAMMAD AIDAN KHALISH BIN MOHD WAN ABDUL WAHAB", c:"1 AL KINDI"},{n:"MUHAMMAD ALIF AIDAN BIN MPHD AIMAN", c:"1 AL KINDI"},{n:"MUHAMMAD AZRAIKAL BIN MOHD AFFENDI", c:"1 AL KINDI"},{n:"MUHAMMAD FARHAN DANISH BIN MOHD FAIRUZ", c:"1 AL KINDI"},{n:"MUHAMMAD HAYYAN BIN MOHD HIDAYATULLAH", c:"1 AL KINDI"},{n:"MUHAMMAD KHAZEEN BIN MUHAMMAD FADHIL", c:"1 AL KINDI"},{n:"MUHAMMAD RIDHWAN BIN MOHD ASRI", c:"1 AL KINDI"},{n:"MUHAMMAD SYAZWAN HAIKAL BIN YAHYA", c:"1 AL KINDI"},{n:"NASHRULLAH WAFI BIN MOHD KHAIRULDDIN", c:"1 AL KINDI"},{n:"NIK MUHAMMAD AMJAD BIN NIK MOHD ARIF", c:"1 AL KINDI"},{n:"YURI BIN MOHD YUNUS", c:"1 AL KINDI"},{n:"AMIRA SYAFIRA BINTI UMAR", c:"1 AL KINDI"},{n:"CHE UMMIE SAIDATUL AMINAH BINTI CHE ANUAR", c:"1 AL KINDI"},{n:"DEANDRA NUR AMMARA BINTI DANISH BAARATHMOGAN", c:"1 AL KINDI"},{n:"INARA NUR AYESHA BINTI CHE MOHD FISWAN", c:"1 AL KINDI"},{n:"MARYAM NUR MEDINA BINTI ABU BAKAR", c:"1 AL KINDI"},{n:"NOOR IZZARA IMELDA BINTI MOHD SAFWAN SARIY", c:"1 AL KINDI"},{n:"NOR HANA SOFEA BINTI FADZLI SHAH", c:"1 AL KINDI"},{n:"NUR AFEEYA HUMAIRA BINTI MUHAMMAD ABRAR", c:"1 AL KINDI"},{n:"NUR ALYA FARISHA BINTI MOHD FAIZ", c:"1 AL KINDI"},{n:"NUR ATIYA HUMAIRA BINTI MAT YASIN", c:"1 AL KINDI"},{n:"NUR DAYANA HAZWANI BINTI MOHD SHADAT", c:"1 AL KINDI"},{n:"NUR HANA WARDINA BINTI MOHD KHAIRUL MUZZAMIR", c:"1 AL KINDI"},{n:"NUR NADIA BINTI YAAKUB", c:"1 AL KINDI"},{n:"NUR NAYLA QAISARA BINTI MOHD HAFIZ", c:"1 AL KINDI"},{n:"NUR RAYSHA RANIA BINTI MOHD QATAMAN", c:"1 AL KINDI"},{n:"NUR WIDAD SAFIYA BINTI KHAIRUL IZAT", c:"1 AL KINDI"},{n:"NURUL RAISHA RABIATUL ADAWIYAH BINTI KHOSIM", c:"1 AL KINDI"},{n:"RAJA NOR AMANDA AQILAH BINTI RAJA MOHAMAD AZLAN", c:"1 AL KINDI"},{n:"SITI NORAIN ASYIQIN BINTI ABDUL HAFIZ", c:"1 AL KINDI"},{n:"NUR INARA HUSNA BINTI MOHD FIRDAUS", c:"1 AL KINDI"},
-            {n:"AMAR AUS BIN MOHD EMMAR ZAMSHAH", c:"1 AL RAZI"},{n:"CHE WAN AHMAD AYDAN ZHARIF BIN CHE WAN MOHD FIRDAUS", c:"1 AL RAZI"},{n:"MOHAMAD ZULFAHMI BIN MOHAMAD ZULFADELI", c:"1 AL RAZI"},{n:"MOHAMMAD IAN RIZQI BIN MOHAMAD IMAN FAIZ", c:"1 AL RAZI"},{n:"MUHAMAD ANIQ RAFIQI BIN MUHAMAD RAHMAN", c:"1 AL RAZI"},{n:"MUHAMMAD ADAM FIRAS BIN SAMSUDIN", c:"1 AL RAZI"},{n:"MUHAMMAD AFIQ DHANNI BIN ABDUL AZHIM", c:"1 AL RAZI"},{n:"MUHAMMAD AZZAM SYAREEF BIN MOHAMAD ASYRAF", c:"1 AL RAZI"},{n:"MUHAMMAD FATEH HILMAN BIN MOHD ARIS", c:"1 AL RAZI"},{n:"MUHAMMAD HANIF MIKAIL BIN MUHAMAD HAKIMI", c:"1 AL RAZI"},{n:"MUHAMMAD ILHAN EQBAL BIN AHMAD", c:"1 AL RAZI"},{n:"MUHAMMAD LUTH RIZQI BIN AHMAD BAZLI", c:"1 AL RAZI"},{n:"MUHAMMAD RIFFQIE ARFAN BIN MOHD KHAIRUL IEZWAN", c:"1 AL RAZI"},{n:"MUHAMMAD SYAQIF AMMAR BIN SAIMI", c:"1 AL RAZI"},{n:"MUHAMMAD UMAR BIN MOHD ADIB", c:"1 AL RAZI"},{n:"MUHAMMAD ZARIF AZIZ BIN MOHD ZAMRI", c:"1 AL RAZI"},{n:"WAN MUHAMMAD AMMAR IRFAN BIN WAN MOHD ARIF AMIRUDDIN", c:"1 AL RAZI"},{n:"WA'QEEL ALTHAF BIN MOHAMAD EFFENDI", c:"1 AL RAZI"},{n:"AISYA AFIA BINTI MUHAMMAD AMIR", c:"1 AL RAZI"},{n:"ARWA ALESYA NURZAHRA BINTI MOHD KHAIRI AZLI", c:"1 AL RAZI"},{n:"DHIA AULIYA BINTI MUHAMAD TAQIYUDDIN", c:"1 AL RAZI"},{n:"MARYAM SYAFIRA BINTI MOHAMAD KHAIRUL HAFIZ", c:"1 AL RAZI"},{n:"NIK NUR HUSNA BINTI MUHAMAD SHAHARUDDIN", c:"1 AL RAZI"},{n:"NOR ZAHIRA AQILAH BINTI ZULKIFLI", c:"1 AL RAZI"},{n:"NUR AFRINA RAISYA BINTI OTHMAN", c:"1 AL RAZI"},{n:"NUR ASSYIFA HANAN BINTI MOHD IKBAL HAKIM", c:"1 AL RAZI"},{n:"NUR AULIYA HAURA BINTI AZLAN", c:"1 AL RAZI"},{n:"NUR DHAFWATUL AISY HAYANI BINTI ROAZAMI", c:"1 AL RAZI"},{n:"NUR HAURA' HUMAIRAA BINTI MOHD FADZIRUL EAFFENDY", c:"1 AL RAZI"},{n:"NUR INARA HANA BINTI MOHD FIRDAUS", c:"1 AL RAZI"},{n:"NUR IZARA RAISHA BINTI MOHD NIZAM FAZRUL", c:"1 AL RAZI"},{n:"NUR NAIRA AQILA BINTI MUHAMMAD KHAIRUL NIZAM", c:"1 AL RAZI"},{n:"NUR SARA MIKAYLA BINTI MUHAMMAD IKHTIYARUDDIN BAKHTIAR", c:"1 AL RAZI"},{n:"NUR ZAHRA SOFFIA BINTI AZHAR", c:"1 AL RAZI"},{n:"PUTERI ANGGUN ZENIA BINTI ZULHELMI", c:"1 AL RAZI"},{n:"SHAHEEN IMANI BINTI MD YASROL", c:"1 AL RAZI"},{n:"SITI RAWDHA ALFIA BINTI MOHD YUSDY BULHAQS", c:"1 AL RAZI"},{n:"TUAN AYRA MIKAYLA BINTI TUAN SHAMSUDIN", c:"1 AL RAZI"},
+            {n:"ADAM MUQRI BIN MOHD ZAIMI", c:"1 AL KINDI"},{n:"AHMAD NAUFAL BIN AHMAD NASRI", c:"1 AL KINDI"},{n:"AR RAYYAN MAULANA BIN ABDUL SALAM", c:"1 AL KINDI"},{n:"MOHAMAD PUTERA RAMADHAN BIN ASRAH @ SHAFIE", c:"1 AL KINDI"},{n:"MOHAMMAD HAFIZOL BIN MOHD SHAIFUDDIN", c:"1 AL KINDI"},{n:"MUHAMAD ANAS MIKHAIL BIN ABDULLAH", c:"1 AL KINDI"},{n:"MUHAMMAD ADAM FARIS BIN MUHAMMAD JEFRI", c:"1 AL KINDI"},{n:"MUHAMMAD AIDAN KHALISH BIN MOHD WAN ABDUL WAHAB", c:"1 AL KINDI"},{n:"MUHAMMAD ALIF AIDAN BIN MPHD AIMAN", c:"1 AL KINDI"},{n:"MUHAMMAD AZRAIKAL BIN MOHD AFFENDI", c:"1 AL KINDI"},{n:"MUHAMMAD FARHAN DANISH BIN MOHD FAIRUZ", c:"1 AL KINDI"},{n:"MUHAMMAD HAYYAN BIN MOHD HIDAYATULLAH", c:"1 AL KINDI"},{n:"MUHAMMAD KHAZEEN BIN MUHAMMAD FADHIL", c:"1 AL KINDI"},{n:"MUHAMMAD RIDHWAN BIN MOHD ASRI", c:"1 AL KINDI"},{n:"MUHAMMAD SYAZWAN HAIKAL BIN YAHYA", c:"1 AL KINDI"},{n:"NASHRULLAH WAFI BIN MOHD KHAIRULDDIN", c:"1 AL KINDI"},{n:"NIK MUHAMMAD AMJAD BIN NIK MOHD ARIF", c:"1 AL KINDI"},{n:"YURI BIN MOHD YUNUS", c:"1 AL KINDI"},{n:"AMIRA SYAFIRA BINTI UMAR", c:"1 AL KINDI"},{n:"CHE UMMIE SAIDATUL AMINAH BINTI CHE ANUAR", c:"1 AL KINDI"},{n:"DEANDRA NUR AMMARA BINTI DANISH BAARATHMOGAN", c:"1 AL KINDI"},{n:"INARA NUR AYESHA BINTI CHE MOHD FISWAN", c:"1 AL KINDI"},{n:"MARYAM NUR MEDINA BINTI ABU BAKAR", c:"1 AL KINDI"},{n:"NOOR IZZARA IMELDA BINTI MOHD SAFWAN SARIY", c:"1 AL KINDI"},{n:"NOR HANA SOFEA BINTI FADZLI SHAH", c:"1 AL KINDI"},{n:"NUR AFEEYA HUMAIRA BINTI MUHAMMAD ABRAR", c:"1 AL KINDI"},{n:"NUR ALYA FARISHA BINTI MOHD FAIZ", c:"1 AL KINDI"},{n:"NUR ATIYA HUMAIRA BINTI MAT YASIN", c:"1 AL KINDI"},{n:"NUR DAYANA HAZWANI BINTI MOHD SHADAT", c:"1 AL KINDI"},{n:"NUR HANA WARDINA BINTI MOHD KHAIRUL MUZZAMIR", c:"1 AL KINDI"},{n:"NUR NADIA BINTI YAAKUB", c:"1 AL KINDI"},{n:"NUR NAYLA QAISARA BINTI MOHD HAFIZ", c:"1 AL KINDI"},{n:"NUR RAYSHA RANIA BINTI MOHD QATAMAN", c:"1 AL KINDI"},{n:"NUR WIDAD SAFIYA BINTI KHAIRUL IZAT", c:"1 AL KINDI"},{n:"NURUL RAISHA RABIATUL ADAWIYAH BINTI KHOSIM", c:"1 AL KINDI"},{n:"RAJA NOR AMANDA AQILAH BINTI RAJA MOHAMAD AZLAN", c:"1 AL KINDI"},{n:"SITI NORAIN ASYIQIN BINTI ABDUL HAFIZ", c:"1 AL KINDI"},{n:"NUR INARA HUSNA BINTI MOHD FIRDAUS", c:"1 AL KINDI"},{n:"AMAR AUS BIN MOHD EMMAR ZAMSHAH", c:"1 AL RAZI"},{n:"CHE WAN AHMAD AYDAN ZHARIF BIN CHE WAN MOHD FIRDAUS", c:"1 AL RAZI"},{n:"MOHAMAD ZULFAHMI BIN MOHAMAD ZULFADELI", c:"1 AL RAZI"},{n:"MOHAMMAD IAN RIZQI BIN MOHAMAD IMAN FAIZ", c:"1 AL RAZI"},{n:"MUHAMAD ANIQ RAFIQI BIN MUHAMAD RAHMAN", c:"1 AL RAZI"},{n:"MUHAMMAD ADAM FIRAS BIN SAMSUDIN", c:"1 AL RAZI"},{n:"MUHAMMAD AFIQ DHANNI BIN ABDUL AZHIM", c:"1 AL RAZI"},{n:"MUHAMMAD AZZAM SYAREEF BIN MOHAMAD ASYRAF", c:"1 AL RAZI"},{n:"MUHAMMAD FATEH HILMAN BIN MOHD ARIS", c:"1 AL RAZI"},{n:"MUHAMMAD HANIF MIKAIL BIN MUHAMAD HAKIMI", c:"1 AL RAZI"},{n:"MUHAMMAD ILHAN EQBAL BIN AHMAD", c:"1 AL RAZI"},{n:"MUHAMMAD LUTH RIZQI BIN AHMAD BAZLI", c:"1 AL RAZI"},{n:"MUHAMMAD RIFFQIE ARFAN BIN MOHD KHAIRUL IEZWAN", c:"1 AL RAZI"},{n:"MUHAMMAD SYAQIF AMMAR BIN SAIMI", c:"1 AL RAZI"},{n:"MUHAMMAD UMAR BIN MOHD ADIB", c:"1 AL RAZI"},{n:"MUHAMMAD ZARIF AZIZ BIN MOHD ZAMRI", c:"1 AL RAZI"},{n:"WAN MUHAMMAD AMMAR IRFAN BIN WAN MOHD ARIF AMIRUDDIN", c:"1 AL RAZI"},{n:"WA'QEEL ALTHAF BIN MOHAMAD EFFENDI", c:"1 AL RAZI"},{n:"AISYA AFIA BINTI MUHAMMAD AMIR", c:"1 AL RAZI"},{n:"ARWA ALESYA NURZAHRA BINTI MOHD KHAIRI AZLI", c:"1 AL RAZI"},{n:"DHIA AULIYA BINTI MUHAMAD TAQIYUDDIN", c:"1 AL RAZI"},{n:"MARYAM SYAFIRA BINTI MOHAMAD KHAIRUL HAFIZ", c:"1 AL RAZI"},{n:"NIK NUR HUSNA BINTI MUHAMAD SHAHARUDDIN", c:"1 AL RAZI"},{n:"NOR ZAHIRA AQILAH BINTI ZULKIFLI", c:"1 AL RAZI"},{n:"NUR AFRINA RAISYA BINTI OTHMAN", c:"1 AL RAZI"},{n:"NUR ASSYIFA HANAN BINTI MOHD IKBAL HAKIM", c:"1 AL RAZI"},{n:"NUR AULIYA HAURA BINTI AZLAN", c:"1 AL RAZI"},{n:"NUR DHAFWATUL AISY HAYANI BINTI ROAZAMI", c:"1 AL RAZI"},{n:"NUR HAURA' HUMAIRAA BINTI MOHD FADZIRUL EAFFENDY", c:"1 AL RAZI"},{n:"NUR INARA HANA BINTI MOHD FIRDAUS", c:"1 AL RAZI"},{n:"NUR IZARA RAISHA BINTI MOHD NIZAM FAZRUL", c:"1 AL RAZI"},{n:"NUR NAIRA AQILA BINTI MUHAMMAD KHAIRUL NIZAM", c:"1 AL RAZI"},{n:"NUR SARA MIKAYLA BINTI MUHAMMAD IKHTIYARUDDIN BAKHTIAR", c:"1 AL RAZI"},{n:"NUR ZAHRA SOFFIA BINTI AZHAR", c:"1 AL RAZI"},{n:"PUTERI ANGGUN ZENIA BINTI ZULHELMI", c:"1 AL RAZI"},{n:"SHAHEEN IMANI BINTI MD YASROL", c:"1 AL RAZI"},{n:"SITI RAWDHA ALFIA BINTI MOHD YUSDY BULHAQS", c:"1 AL RAZI"},{n:"TUAN AYRA MIKAYLA BINTI TUAN SHAMSUDIN", c:"1 AL RAZI"},
 
             // YEAR 2
             {n:"ARIIQ MIKAIL BIN MOHD HERISAH", c:"2 AL BIRUNI"},{n:"KU MUHAMMAD ADAM RAYYAN BIN KU MOHD SAFUAN", c:"2 AL BIRUNI"},{n:"MOHAMAD IMAN NAWFAL BIN SAYUTI", c:"2 AL BIRUNI"},{n:"MOHAMAD RAYYAN HAIKAL BIN MOHAMAD SYARAFUDDIN", c:"2 AL BIRUNI"},{n:"MOHAMAD ZAFRIEL MIKHAIL BIN NOR AZLAN", c:"2 AL BIRUNI"},{n:"MUHAMMAD ABDULLAH FAQIH BIN MOHD JUNAR AMAL", c:"2 AL BIRUNI"},{n:"MUHAMMAD ADDAS BIN YUSAIDY", c:"2 AL BIRUNI"},{n:"MUHAMMAD AMMAR ASYRAF BIN MOHAMAD TERMIZI", c:"2 AL BIRUNI"},{n:"MUHAMMAD AQEEF FIRASH BIN MOHAMAD FIRDAUS", c:"2 AL BIRUNI"},{n:"MUHAMMAD AQIF UZAIR BIN MOHD AFZANIZAM", c:"2 AL BIRUNI"},{n:"MUHAMMAD AQIL RAYYAN BIN AZFARIZAL SHAZWAN", c:"2 AL BIRUNI"},{n:"MUHAMMAD FARIS IQBAL BIN MOHD SAUPI", c:"2 AL BIRUNI"},{n:"MUHAMMAD HANAFI ZAFRAN BIN MOHD RIDZUAN", c:"2 AL BIRUNI"},{n:"MUHAMMAD MUAZ BIN MUHAMMAD MUHSIN", c:"2 AL BIRUNI"},{n:"PUTRA ANAQI MIKHAIL BIN MOHD FIRDAOUS", c:"2 AL BIRUNI"},{n:"QIWAMUDDIN BASHAR BIN AZMUDDIN", c:"2 AL BIRUNI"},{n:"RAIHAN ANAQI BIN ABDUL HAQQ", c:"2 AL BIRUNI"},{n:"WAN MUHAMMAD ARFAAN BIN WAN AFZAN", c:"2 AL BIRUNI"},{n:"HANNAH HASEENA BINTI HASWAWI", c:"2 AL BIRUNI"},{n:"NUR AAFIYAH BINTI MUHAMMAD NASRI", c:"2 AL BIRUNI"},{n:"NUR AAIRA ZINNIRAH BINTI MOHD SYAHRIZAI", c:"2 AL BIRUNI"},{n:"NUR AIN ADILA FATIHAH BINTI MAT ROSDI", c:"2 AL BIRUNI"},{n:"NUR AIRA MIKAYLA BINTI MOHD RAZALI", c:"2 AL BIRUNI"},{n:"NUR FALISHA BINTI MOHD FIRDAUS", c:"2 AL BIRUNI"},{n:"NUR IMANINA DARLEENA BINTI MOHAMED ZUHIR", c:"2 AL BIRUNI"},{n:"NUR SHADRINA FATHIA BINTI SHAMSURI", c:"2 AL BIRUNI"},{n:"NURIN AINUL MARDHIAH BINTI AKASHAH", c:"2 AL BIRUNI"},{n:"RAISYAA RANNIA BINTI MOHD SAIFUL NIZAM", c:"2 AL BIRUNI"},{n:"SITI NUR AFIA IMANI BINTI ASMAWI", c:"2 AL BIRUNI"},{n:"SYIFAA AZZAHRA BINTI ABDUL SYIHABUDDIN", c:"2 AL BIRUNI"},{n:"TUAN NUR AMNA QAILLA BINTI TUAN ROSLEE", c:"2 AL BIRUNI"},{n:"ULAYYA SAFIYYA BINTI ABDULLAH", c:"2 AL BIRUNI"},{n:"ZYRA NOUREEN BINTI MOHD. RAFIQ IZZAT", c:"2 AL BIRUNI"},{n:"ADARA SAFWAH BINTI MOHD SOLEHUDDIN", c:"2 AL BIRUNI"},
             {n:"ABDULLAH AMMAR BIN AHMAD KAMIL HAFIZ", c:"2 AL FARABI"},{n:"AHMAD UMAR QURAISY BIN AHMAD FIRDAUS", c:"2 AL FARABI"},{n:"HABIB HASSAN BIN KARIM", c:"2 AL FARABI"},{n:"MUHAMMAD AIDAN HAIKAL BIN MOHD IDHAM", c:"2 AL FARABI"},{n:"MUHAMMAD AL FATIH BIN MOHD ARIFIN", c:"2 AL FARABI"},{n:"MUHAMMAD AMSYAR RAFIQIN BIN MOHD RAZREEN", c:"2 AL FARABI"},{n:"MUHAMMAD IFFAT RAFIUDDIN BIN AZMI", c:"2 AL FARABI"},{n:"MUHAMMAD ILHAM BIN MOHD TOHIR", c:"2 AL FARABI"},{n:"MUHAMMAD NAUFAL BIN AGUNG SUPRIYANTO", c:"2 AL FARABI"},{n:"MUHAMMAD NURKHALAF FAHMI BIN MOHD SHAZALEE", c:"2 AL FARABI"},{n:"MUHAMMAD RAZZAN IZZRAF BIN MOHD JALANI", c:"2 AL FARABI"},{n:"MUHAMMAD ZAFRAN RAZI BIN MOHD HANIFF", c:"2 AL FARABI"},{n:"TUAN HARRAZ ANAQI BIN TUAN AHMAD HAFISZA", c:"2 AL FARABI"},{n:"UMAR ARRAYYAN BIN MUHAMMAD ZULFAHMY", c:"2 AL FARABI"},{n:"WAN MUHAMAD ZULFAHMI BIN WAN HAZLAN", c:"2 AL FARABI"},{n:"WAN MUHAMMAD HASIFF BIN WAN MOHD FAHMI NASRI", c:"2 AL FARABI"},{n:"ANGGUN MIQAELA BINTI MOHAMMAD KHAIRIL MUZAFFAR", c:"2 AL FARABI"},{n:"ANIS RAISYA ADRIANA BINTI AZMIL", c:"2 AL FARABI"},{n:"NIK AISYA BINTI NIK MOHD HANAFIAH", c:"2 AL FARABI"},{n:"NOR ZULAIKHA HUMAIRA BINTI MOHAMAD ZULKIFLI", c:"2 AL FARABI"},{n:"NUR AINAN SOFIA BINTI MOHD ZAHID", c:"2 AL FARABI"},{n:"NUR IMANI HAFIYA BINTI ABD HAFIZUDDIN", c:"2 AL FARABI"},{n:"NUR JAUZA AL-ZAHHRA BINTI ZUWAIRI", c:"2 AL FARABI"},{n:"NUR KHAYRA MIKAYLA BINTI MUHAMAD FAIZOL", c:"2 AL FARABI"},{n:"NUR QALESYA HUMAIRA BINTI MOHD HAFIZHU QAYYUM", c:"2 AL FARABI"},{n:"NUR WARDAH SYAQILAH BINTI MOHD ZULKIFLI", c:"2 AL FARABI"},{n:"QISYA NUR KHAIREENA BINTI MOHD HAMRY", c:"2 AL FARABI"},{n:"RAANIYA A'LANI BINTI MOHD RASHID", c:"2 AL FARABI"},{n:"SITI FARAH HUMAIMA BINTI ABDUL QAYYUM", c:"2 AL FARABI"},{n:"SITI HAJAR MARDHIAH BINTI ARIWAN", c:"2 AL FARABI"},{n:"SITI NUR AIN IZARA BINTI MOHAMAD SAIFUL BAHARI", c:"2 AL FARABI"},{n:"WAFA SYAKIRAH BINTI NOR AZLAN", c:"2 AL FARABI"},{n:"AHMAD SHAHRUL SHAFIEE BIN AHMAD SUHAIMEE", c:"2 AL FARABI"},{n:"MUHAMMAD HAIKAL BIN MOHD HELMI", c:"2 AL FARABI"},
             {n:"AHMAD DANISH RAYYAN BIN ABDUL KARIM", c:"2 AL KINDI"},{n:"AHMAD FAHIM BIN ABDUL MUHAIMIN", c:"2 AL KINDI"},{n:"AHMAD RAYYAN ISKANDAR BIN AHMAD MUHAIMIN", c:"2 AL KINDI"},{n:"CHE ENGKU IRSYAD RAFIQIE BIN CHE ENGKU INDRA", c:"2 AL KINDI"},{n:"IFFAT ZIYAD BIN ISKANDAR", c:"2 AL KINDI"},{n:"MOHAMMAD HARRAZ DZIKRI BIN MOHD HISHAM", c:"2 AL KINDI"},{n:"MUHAMAD KHALISH ILHAM BIN ABDUL RAZAK", c:"2 AL KINDI"},{n:"MUHAMMAD AALI MIKAIL BIN SOBRYALAISA", c:"2 AL KINDI"},{n:"MUHAMMAD ADLI SAEF BIN JAMELLUDIN", c:"2 AL KINDI"},{n:"MUHAMMAD ADYAN RIZQI BIN RUZLAN", c:"2 AL KINDI"},{n:"MUHAMMAD AFNAN NAUFAL BIN ABDUL AZIZ", c:"2 AL KINDI"},{n:"MUHAMMAD AMEER RIZQI BIN SHAHRUL NIZAM", c:"2 AL KINDI"},{n:"MUHAMMAD ANIQ AMSYAR BIN MOHD TAMIZI", c:"2 AL KINDI"},{n:"MUHAMMAD DAIYAN RIZQIN BIN HAZIROL NIZAM", c:"2 AL KINDI"},{n:"MUHAMMAD ISYRAQ MUSAYYAD BIN MOHD HARIS", c:"2 AL KINDI"},{n:"MUHAMMAD RAYYAN ANAQI BIN MOHD FAIZAK", c:"2 AL KINDI"},{n:"SYED NUH KHAIRIL HAKIMI BIN ABDULLAH", c:"2 AL KINDI"},{n:"AINUL MIKAYLA IMANI BINTI ZAMRI", c:"2 AL KINDI"},{n:"AMNI MALIKA BINTI MOHD KAMARULZAMAN", c:"2 AL KINDI"},{n:"ASMA' BINTI MAMDUH", c:"2 AL KINDI"},{n:"NOOR JANNAH SOFIA BINTI MOHD SAFWAN SARIY", c:"2 AL KINDI"},{n:"NUFA AZZAHRA BINTI AZUAN", c:"2 AL KINDI"},{n:"NUR AISYAH ALEESA BINTI JEMMI", c:"2 AL KINDI"},{n:"NUR ALISHA SOFEA BINTI MOHD HASRUZI", c:"2 AL KINDI"},{n:"NUR AMNI HUMAIRA BINTI MOHD HAIMI", c:"2 AL KINDI"},{n:"NUR MARDHIYAH BINTI MOHAMAD ZULFADELI", c:"2 AL KINDI"},{n:"NUR MEDINA BINTI MOHD ROSLAN", c:"2 AL KINDI"},{n:"NUR WARDAH SAFIYYA BINTI MOHD ZULKIFLI", c:"2 AL KINDI"},{n:"NURUL QISTINA DAHLIA BINTI SIDI AHMAD", c:"2 AL KINDI"},{n:"RAISHA AQILAH BINTI MOHD FAIZZUL", c:"2 AL KINDI"},
-            {n:"AFEEF HARIS BIN ANUAR", c:"2 AL RAZI"},{n:"FAID ZIYAD BIN MOHD FAIZZUL", c:"2 AL RAZI"},{n:"MUHAMAD HARRAZ HAZIQ BIN MOHD REZALI", c:"2 AL RAZI"},{n:"MUHAMMAD ADAM FAREEZ BIN MOHD FAIZ", c:"2 AL RAZI"},{n:"MUHAMMAD ADAM RAYYAN BIN FAHMI", c:"2 AL RAZI"},{n:"MUHAMMAD AHNAF HAYQAL BIN MOHD AZIZUL", c:"2 AL RAZI"},{n:"MUHAMMAD AL HAZAMI ASFRAF BIN ABDUL RAHMAN", c:"2 AL RAZI"},{n:"MUHAMMAD AMMAR ASYRAF", c:"2 AL RAZI"},{n:"MUHAMMAD ANAS ZIYAD BIN SAMZULI", c:"2 AL RAZI"},{n:"MUHAMMAD FARISH MIKHAEL BIN MOHAMED ALAM AKBAR", c:"2 AL RAZI"},{n:"MUHAMMAD FIRDAUS HAZIQ BIN MUHAMMAD HAFIZI", c:"2 AL RAZI"},{n:"MUHAMMAD HAZIQ RIZQI BIN MOHAMAD ZAINI", c:"2 AL RAZI"},{n:"MUHAMMAD IMAN SYAKIR BIN MOHAMAD HANAFI", c:"2 AL RAZI"},{n:"MUHAMMAD QARIZH BIN MUHAMMAD HAFSHAM", c:"2 AL RAZI"},{n:"PUTERA AZAFFRIEL RAMADHAN BIN MOHD AMIRUL ANHAR", c:"2 AL RAZI"},{n:"PUTRA KHALISH HAQ BIN ANUAR", c:"2 AL RAZI"},{n:"AAFIA BINTI MUHAMAD HANIF", c:"2 AL RAZI"},{n:"CHE NUR SYIFFA HANANIA BINTI CHE MOHD NOOR SUBHIE", c:"2 AL RAZI"},{n:"MARYAM SOLEHAH BINTI ZABRI", c:"2 AL RAZI"},{n:"NUR AFIA IRDINA BINTI MOHD ZULKIFLI", c:"2 AL RAZI"},{n:"NUR AILEEN MAISARAH BINTI MUHAMAD SULAIMAN", c:"2 AL RAZI"},{n:"NUR DHIA ARISSA BINTI MUHAMAD HARIS", c:"2 AL RAZI"},{n:"NUR DINA AULIYA BINTI MOHD ZAMHAM", c:"2 AL RAZI"},{n:"NUR FARAH AISYA BINTI KOLEK @ AZRUL", c:"2 AL RAZI"},{n:"NUR HANAN KHAIRA BINTI MOHD SHUKRI", c:"2 AL RAZI"},{n:"NUR HUSNINA ADWA BINTI HALIMI", c:"2 AL RAZI"},{n:"NUR INARA HANA BINTI MOHD YAAKOB", c:"2 AL RAZI"},{n:"NUR JAMRAH HAURA BINTI HIZWAN FAZRI", c:"2 AL RAZI"},{n:"NUR NAINA NADEERA BINTI MOHD SOBRE", c:"2 AL RAZI"},{n:"NUR QASEH QAISARA BINTI ABD RAZAK", c:"2 AL RAZI"},{n:"NURUL HIDAYAH AQILAH BINTI AZMAN", c:"2 AL RAZI"},{n:"UMMI SAFIYYA BINTI MOHAMAD BORHANUDIN", c:"2 AL RAZI"},
+            {n:"AFEEF HARIS BIN ANUAR", c:"2 AL RAZI"},{n:"FAID ZIYAD BIN MOHD FAIZZUL", c:"2 AL RAZI"},{n:"MUHAMAD HARRAZ HAZIQ BIN MOHD REZALI", c:"2 AL RAZI"},{n:"MUHAMMAD ADAM FAREEZ BIN MOHD FAIZ", c:"2 AL RAZI"},{n:"MUHAMMAD ADAM RAYYAN BIN FAHMI", c:"2 AL RAZI"},{n:"MUHAMMAD AHNAF HAYQAL BIN MOHD AZIZUL", c:"2 AL RAZI"},{n:"MUHAMMAD AL HAZAMI ASFRAF BIN ABDUL RAHMAN", c:"2 AL RAZI"},{n:"MUHAMMAD AMMAR ASYRAF", c:"2 AL RAZI"},{n:"MUHAMMAD ANAS ZIYAD BIN SAMZULI", c:"2 AL RAZI"},{n:"MUHAMMAD FARISH MIKHAEL BIN MOHAMED ALAM AKBAR", c:"2 AL RAZI"},{n:"MUHAMMAD FIRDAUS HAZIQ BIN MUHAMMAD HAFIZI", c:"2 AL RAZI"},{n:"MUHAMMAD HAZIQ RIZQI BIN MOHD ZAINI", c:"2 AL RAZI"},{n:"MUHAMMAD IMAN SYAKIR BIN MOHAMAD HANAFI", c:"2 AL RAZI"},{n:"MUHAMMAD QARIZH BIN MUHAMMAD HAFSHAM", c:"2 AL RAZI"},{n:"PUTERA AZAFFRIEL RAMADHAN BIN MOHD AMIRUL ANHAR", c:"2 AL RAZI"},{n:"PUTRA KHALISH HAQ BIN ANUAR", c:"2 AL RAZI"},{n:"AAFIA BINTI MUHAMAD HANIF", c:"2 AL RAZI"},{n:"CHE NUR SYIFFA HANANIA BINTI CHE MOHD NOOR SUBHIE", c:"2 AL RAZI"},{n:"MARYAM SOLEHAH BINTI ZABRI", c:"2 AL RAZI"},{n:"NUR AFIA IRDINA BINTI MOHD ZULKIFLI", c:"2 AL RAZI"},{n:"NUR AILEEN MAISARAH BINTI MUHAMAD SULAIMAN", c:"2 AL RAZI"},{n:"NUR DHIA ARISSA BINTI MUHAMAD HARIS", c:"2 AL RAZI"},{n:"NUR DINA AULIYA BINTI MOHD ZAMHAM", c:"2 AL RAZI"},{n:"NUR FARAH AISYA BINTI KOLEK @ AZRUL", c:"2 AL RAZI"},{n:"NUR HANAN KHAIRA BINTI MOHD SHUKRI", c:"2 AL RAZI"},{n:"NUR HUSNINA ADWA BINTI HALIMI", c:"2 AL RAZI"},{n:"NUR INARA HANA BINTI MOHD YAAKOB", c:"2 AL RAZI"},{n:"NUR JAMRAH HAURA BINTI HIZWAN FAZRI", c:"2 AL RAZI"},{n:"NUR NAINA NADEERA BINTI MOHD SOBRE", c:"2 AL RAZI"},{n:"NUR QASEH QAISARA BINTI ABD RAZAK", c:"2 AL RAZI"},{n:"NURUL HIDAYAH AQILAH BINTI AZMAN", c:"2 AL RAZI"},{n:"UMMI SAFIYYA BINTI MOHAMAD BORHANUDIN", c:"2 AL RAZI"},
 
             // YEAR 3
             {n:"FAYYAD IFFAT BIN FAIYRUL", c:"3 AL BIRUNI"},{n:"MUHAMAD IMAN AISY BIN AFTAR", c:"3 AL BIRUNI"},{n:"MUHAMMAD AIDIL MIKHAIL BIN MOHD SUKRI", c:"3 AL BIRUNI"},{n:"MUHAMMAD AMMAR DANIYAL BIN MOHD JAAFAR", c:"3 AL BIRUNI"},{n:"MUHAMMAD AQIFF BIN MUHAMMAD RIDHUAN", c:"3 AL BIRUNI"},{n:"MUHAMMAD FARIS ADRIAN BIN MUHAMMAD ADAM", c:"3 AL BIRUNI"},{n:"MUHAMMAD HAALIQ UZAIR BIN MOHD FAIZAL", c:"3 AL BIRUNI"},{n:"MUHAMMAD HADI IRSYAD BIN ASMADI", c:"3 AL BIRUNI"},{n:"MUHAMMAD HADIEF BIN MUHAMMAD NUZAINI", c:"3 AL BIRUNI"},{n:"MUHAMMAD MUAZ BIN MOHD ZULKAFLI", c:"3 AL BIRUNI"},{n:"MUHAMMAD NASRUL HAQ BIN MOHD KAMAL", c:"3 AL BIRUNI"},{n:"MUHAMMAD UWAIIS RIEZKI BIN MOHD SHAHIRAN ANUAR", c:"3 AL BIRUNI"},{n:"MUHAMMAD UWAIS AL QARNI BIN MOHD RAMDHAN", c:"3 AL BIRUNI"},{n:"MUHAMMAD ZULHAIRY BIN MOHD ZAMRI", c:"3 AL BIRUNI"},{n:"RAJA AFEEF AISY RIZQI BIN RAJA AZMAN", c:"3 AL BIRUNI"},{n:"RAZIF ARSYAD FITTRI BIN ROSLI", c:"3 AL BIRUNI"},{n:"AINUR ASHSYIFFA RANIA BINTI MOHD ASHROFF", c:"3 AL BIRUNI"},{n:"ALISHA SOFIA BINTI MOHD IZWAN HANIF", c:"3 AL BIRUNI"},{n:"DHIA MEDINA BINTI MOHAMAD AZWAN IFRAM", c:"3 AL BIRUNI"},{n:"INAS INARA AULIYA BINTI MOHD KHAIRUL IEZWAN", c:"3 AL BIRUNI"},{n:"NIK HUMAIRAA' IRDHINA BINTI NIK MOHD HAFIS", c:"3 AL BIRUNI"},{n:"NUR AIDA SAFFIYAH BINTI MUSA", c:"3 AL BIRUNI"},{n:"NUR AINA SOFIA BINTI NOR HISHAM", c:"3 AL BIRUNI"},{n:"NUR ANIS SHAZWANI BINTI ABDULLAH", c:"3 AL BIRUNI"},{n:"NUR DHIA UFAIRAH BINTI ABDUL RAZAK", c:"3 AL BIRUNI"},{n:"NUR ERRIERA FARHANA BINTI AZHAR", c:"3 AL BIRUNI"},{n:"NUR JANNAH BASIRUN BINTI MOHD AZRUL", c:"3 AL BIRUNI"},{n:"NUR NISRINA ADILA BINTI ARIF FADILLAH", c:"3 AL BIRUNI"},{n:"NUR SOFEA AULIA BINTI MOHD ZAMRI", c:"3 AL BIRUNI"},{n:"NUR WAFA SOLEHAH BINTI MOHAMAD ALY", c:"3 AL BIRUNI"},{n:"NURUL ADIRA DELISYA BINTI SUFIAN", c:"3 AL BIRUNI"},{n:"NURUL AQILA ZASKIA BINTI MOHD NAZROL", c:"3 AL BIRUNI"},{n:"NURUL DELISHA WARDANI BINTI ZUL HAKIM", c:"3 AL BIRUNI"},{n:"NURUL JANNAH BINTI MUHAMAAD FITRI", c:"3 AL BIRUNI"},{n:"NURUL NAJIHATUL SYUHADA BINTI KHOSIM", c:"3 AL BIRUNI"},{n:"NUUR IQKLIMAA BINTI MUHAMMAD", c:"3 AL BIRUNI"},{n:"SITI DAISHA RAIHANAH BINTI HAZIROL NIZAM", c:"3 AL BIRUNI"},{n:"MUHAMMAD EZZ AYDEEN ZHAFRAN BIN MOHD DASUKI", c:"3 AL BIRUNI"},
             {n:"ABU HAZIQ HUZAIFAH BIN ABU HURAIRAH", c:"3 AL FARABI"},{n:"AISH HAFIY BIN MOHD SHASRUL HASRA", c:"3 AL FARABI"},{n:"DARWISY AARYAN BIN DANISH BAARATHMOGAN", c:"3 AL FARABI"},{n:"MOHAMAD PUTERA UMAR FARHAN BIN ASRAH @ SHAFIE", c:"3 AL FARABI"},{n:"MUHAMAD AFIQ RIDWAN BIN MUHAMAD RAHMAN", c:"3 AL FARABI"},{n:"MUHAMMAD DAYYAN DARWISH BIN MOHD NORHAPIZA", c:"3 AL FARABI"},{n:"MUHAMMAD HAFIZ IRFAN BIN MUHAMMAD RIDZAN", c:"3 AL FARABI"},{n:"MUHAMMAD HARIZ BIN MOHD HIDAYATULLAH", c:"3 AL FARABI"},{n:"MUHAMMAD IMAN DHANI BIN KHAIRUL ANWAR", c:"3 AL FARABI"},{n:"MUHAMMAD QARIZH FAYYADH BIN MOHD IZHAM", c:"3 AL FARABI"},{n:"MUHAMMAD RIFQIE THAQIFUDIN BIN SAMSUDIN", c:"3 AL FARABI"},{n:"MUHAMMAD SUFIY IZZHAN BIN MOHAMED ISMAIL", c:"3 AL FARABI"},{n:"MUHAMMAD SYARIEZ FAYYADH BIN SHAMSURI", c:"3 AL FARABI"},{n:"WAEL ANAQI BIN MOHAMAD EFFENDI", c:"3 AL FARABI"},{n:"WAN MUHAMMAD AMSYAR BIN WAN MOHD HAFIZUDDIN", c:"3 AL FARABI"},{n:"AILEEN ALIESYA BINTI MUHD AZRIE SYAZALI", c:"3 AL FARABI"},{n:"AIRA NADIYAH BINTI MOHD FUZAIMI", c:"3 AL FARABI"},{n:"CHE ENGKU NUR QASRINA DAMIA BINTI CHE ENGKU ISKANDAR", c:"3 AL FARABI"},{n:"NIK NUR ARIANA SAFIYA BINTI NIK MOHD ARIF", c:"3 AL FARABI"},{n:"NUR AAIRA ALISHA BINTI AMIRUL ASYRAF", c:"3 AL FARABI"},{n:"NUR AAIRA JAZMIN BINTI JAAFAR", c:"3 AL FARABI"},{n:"NUR ALIYA SHAHEERA BINTI ABD.AZIZ", c:"3 AL FARABI"},{n:"NUR AUFA BINTI AHMAD AZIZI", c:"3 AL FARABI"},{n:"NUR AUNI MIRZA BINTI MAZMIZAN", c:"3 AL FARABI"},{n:"NUR DHIYA RAIHANAH BINTI ROSLI", c:"3 AL FARABI"},{n:"NUR FATHIYYA AMANI BINTI MUHAMMAD SHAIFUL AMIERUL", c:"3 AL FARABI"},{n:"NUR RAISYA IMANI BT M.FAREZ IZWAN", c:"3 AL FARABI"},{n:"NUR SYIFA ANNISA BINTI MUHAMMAD ILYAS", c:"3 AL FARABI"},{n:"NUR SYIFA AQILAH BINTI MOHAMAD SHAHRUL EFFIZAN", c:"3 AL FARABI"},{n:"NURIN ALYA BINTI ZAMRI", c:"3 AL FARABI"},{n:"SITI MARYAM BINTI MOHD ASRI", c:"3 AL FARABI"},{n:"SITI NORAISYAH SYAFIA BINTI ABDUL HAFIZ", c:"3 AL FARABI"},{n:"SITI NUR ARIESHAA BINTI ROSLAN", c:"3 AL FARABI"},{n:"TENGKU AILEEN HAYANI BINTI TENGKU NURUL FAKRI", c:"3 AL FARABI"},{n:"UMI NUR ARQIELLA UMAIRAH BINTI ABDULLAH", c:"3 AL FARABI"},{n:"WAN NUR MARIAM ADRA BINTI WAN MUSTAFA", c:"3 AL FARABI"},
             {n:"AHMAD MUAYYAD BIN MANSOR MAJDI", c:"3 AL KINDI"},{n:"AHMAD NAQUIB BIN MUHAMMAD NAJID", c:"3 AL KINDI"},{n:"MUHAMAD AISY FAYYADH BIN MUHAMAD HAFIZI", c:"3 AL KINDI"},{n:"MUHAMAD EIJAZ ZIQRI NAZARIN BIN ABDUL KARIM", c:"3 AL KINDI"},{n:"MUHAMMAD AFIY FAKRI BIN ZUKRI", c:"3 AL KINDI"},{n:"MUHAMMAD AZFAR DANISH BIN MOHD AZLAN", c:"3 AL KINDI"},{n:"MUHAMMAD KHALEED BIN MUHAMMAD FADHIL", c:"3 AL KINDI"},{n:"MUHAMMAD NAUFAL IMAN BIN ABU TALIB", c:"3 AL KINDI"},{n:"MUHAMMAD RAYYAN FIRDAUS BIN ABDULLAH", c:"3 AL KINDI"},{n:"MUHAMMAD SYARIF ADAM BIN SAIMI", c:"3 AL KINDI"},{n:"MUHAMMAD WAFIY BIN KHAIRUL IZAT", c:"3 AL KINDI"},{n:"MUHAMMAD ZAQWAN ZAHIRULLAH BIN ABDUL ZAHIR", c:"3 AL KINDI"},{n:"MUHAMMAD ZAYYAN BIN MOHD SHAFIK", c:"3 AL KINDI"},{n:"QARIZH HILMI BIN SHARI HAMDAN", c:"3 AL KINDI"},{n:"TENGKU MUHAMMAD ADAM DANIAL AMSYAR BIN TENGKU AZLAN", c:"3 AL KINDI"},{n:"WAN MUHAMMAD ARMAN BIN WAN AZMAN", c:"3 AL KINDI"},{n:"ZUL EZHAM RAMDHAN BIN ZULHAIZAL", c:"3 AL KINDI"},{n:"HANNAH SOFIYYAH BINTI MOHDMMAD AFIQ", c:"3 AL KINDI"},{n:"NIK NUR ADIRA IZZATI BINTI KAMARUL AZUAN", c:"3 AL KINDI"},{n:"NOOR SYAFIRA BINTI ABD MALIK", c:"3 AL KINDI"},{n:"NUR AFEEYA ALEESYA BINTI NOR FADZROL", c:"3 AL KINDI"},{n:"NUR AINA BATRISYIA BINTI ABDULLAH", c:"3 AL KINDI"},{n:"NUR AIRA AQILAH BINTI ROIS", c:"3 AL KINDI"},{n:"NUR AUNI DAHLIA BINTI MOHD SYAIFFULDIN", c:"3 AL KINDI"},{n:"NUR FAHIMA ALIFA BINTI ABDUL MUHAIMIN", c:"3 AL KINDI"},{n:"NUR ZAHRA QAISARA BINTI AHMAD ZAKI", c:"3 AL KINDI"},{n:"NURIN ALYA HUMAIRA BINTI MOHD ROKMAN", c:"3 AL KINDI"},{n:"NURUL AMEENA RAUDHAH BINTI SIDI AHMAD", c:"3 AL KINDI"},{n:"NURUL IZYAN SOLEHAH BINTI MUHAMAD ABDUL HADI", c:"3 AL KINDI"},{n:"PUTERI NUR ATHYRAH AUNI BINTI MOHD ZULKARNAIN IMRAN", c:"3 AL KINDI"},{n:"PUTERI NUR HUSNA IZZARA BINTI HABIBUL INSAN", c:"3 AL KINDI"},{n:"PUTRI NUR ARRIANA DAMIA BINTI AMRAN", c:"3 AL KINDI"},{n:"PUTRI NUR BALQIS RAISHA BINTI AZNAN", c:"3 AL KINDI"},{n:"PUTRI SAYYIDA AL HURRA BINTI MOHD SHAHARUDDIN", c:"3 AL KINDI"},{n:"QHADEEJA AINNUR SAFIYA BINTI ANWAR SHAFIQ", c:"3 AL KINDI"},{n:"WAN NUR HUMAIRAH BINTI WAN MOHD ARIF AMIRUDDIN", c:"3 AL KINDI"},{n:"NUR HANAN INSYIRAH BINTI ABDUL MUEIZ", c:"3 AL KINDI"},
-            {n:"AMSYAR RAFIQI BIN ZAHARI", c:"3 AL RAZI"},{n:"MUHAMMAD ADAM MIKAIL BIN MOHD FIRDAUS", c:"3 AL RAZI"},{n:"MUHAMMAD ADHAM BIN MOHD SHAHRUL BAHARI", c:"3 AL RAZI"},{n:"MUHAMMAD AISY RAYYAN BIN MOHD RIDZUAN", c:"3 AL RAZI"},{n:"MUHAMMAD AMSYAR RAID BIN MOHAMMAD REDZUAN", c:"3 AL RAZI"},{n:"MUHAMMAD BIN HO SEN", c:"3 AL RAZI"},{n:"MUHAMMAD EL ARYYAN BIN MUHAMMAD AZMAN", c:"3 AL RAZI"},{n:"MUHAMMAD ELYAS WAFIY BIN MOHD ADILA", c:"3 AL RAZI"},{n:"MUHAMMAD HABIB AMSYAR BIN HAFIZUL AHMA", c:"3 AL RAZI"},{n:"MUHAMMAD IKHMAL HAZIQ BIN MOHD IRWAN HAZUAN", c:"3 AL RAZI"},{n:"MUHAMMAD IRFAN BIN ABDULLAH", c:"3 AL RAZI"},{n:"MUHAMMAD NAUFAL BIN MOHD KHAIRUL NIZAM", c:"3 AL RAZI"},{n:"MUHAMMAD PUTRA HIQWAN RAYQAL BIN MOHD AFENDI", c:"3 AL RAZI"},{n:"MUHAMMAD RAYQAL RIFQIY BIN MOHD QATAMAN", c:"3 AL RAZI"},{n:"MUHAMMAD SYAMER HAIKAL BIN AWANG", c:"3 AL RAZI"},{n:"MUHAMMAD UMAR MUHAIMIN BIN SOBRYALAISA", c:"3 AL RAZI"},{n:"AIRIS DELISHA BINTI AL HADI", c:"3 AL RAZI"},{n:"AMNA NUR QAIREEN BINTI MOHD ZAMZIRO", c:"3 AL RAZI"},{n:"CHE UMMIE SAIDATUL KHATIJAH BINTI CHE ANUAR", c:"3 AL RAZI"},{n:"NIKITA NURZAHIRA BINTI MUHAMMAD NATRAH", c:"3 AL RAZI"},{n:"NORAKILA BINTI AHMAD JAMAL", c:"3 AL RAZI"},{n:"NUR AQEELA NAZIRA BINTI ROSLAN", c:"3 AL RAZI"},{n:"NUR DELISHA HUMAIRA BINTI MUHAMMAD ZUL AKRAAM", c:"3 AL RAZI"},{n:"NUR FAIQAH QURRATU AIN BINTI ABDUL FATTAH", c:"3 AL RAZI"},{n:"NUR FALISHA QAISARA BINTI MOHD FAHMI", c:"3 AL RAZI"},{n:"NUR HANANIA MIQAYLA BINTI HAIRUL ANUAR", c:"3 AL RAZI"},{n:"NUR IZZARA SOFEA BINTI MOHD ADIB", c:"3 AL RAZI"},{n:"NUR MARDHIAH SUMAYYAH BINTI MUHAMMAD SOFFIAN", c:"3 AL RAZI"},{n:"NUR NAURA AMANDA BINTI ABDUL MU'IZZ", c:"3 AL RAZI"},{n:"NUR WAHIDA NABILA BINTI SOFIAN", c:"3 AL RAZI"},{n:"NUR YASMEEN NAURA BINTI MOHD NORHAFIZAN", c:"3 AL RAZI"},{n:"NUR ZAHRA DHIYA BINTI MOHD FARID", c:"3 AL RAZI"},{n:"NUR ZAKIRAH KHALISYA BINTI MOHD ZULKARNAIN", c:"3 AL RAZI"},{n:"NURUL SYAMIMI QAISARA BINTI SHAHRUL ANUAR", c:"3 AL RAZI"},{n:"PUTRI QALISHA QISTINA BINTI MUHAMMAD JOLAKMAN", c:"3 AL RAZI"},{n:"TUAN NUR ALANIAH QHADRA BINTI TUAN ROSLEE", c:"3 AL RAZI"},{n:"ZARA HUMAIRA BINTI MOHD SHAHMARULL FAIZULL", c:"3 AL RAZI"},
+            {n:"AMSYAR RAFIQI BIN ZAHARI", c:"3 AL RAZI"},{n:"MUHAMMAD ADAM MIKAIL BIN MOHD FIRDAUS", c:"3 AL RAZI"},{n:"MUHAMMAD ADHAM BIN MOHD SHAHRUL BAHARI", c:"3 AL RAZI"},{n:"MUHAMMAD AISY RAYYAN BIN MOHD RIDZUAN", c:"3 AL RAZI"},{n:"MUHAMMAD AMSYAR RAID BIN MOHD REDZUAN", c:"3 AL RAZI"},{n:"MUHAMMAD BIN HO SEN", c:"3 AL RAZI"},{n:"MUHAMMAD EL ARYYAN BIN MUHAMMAD AZMAN", c:"3 AL RAZI"},{n:"MUHAMMAD ELYAS WAFIY BIN MOHD ADILA", c:"3 AL RAZI"},{n:"MUHAMMAD HABIB AMSYAR BIN HAFIZUL AHMA", c:"3 AL RAZI"},{n:"MUHAMMAD IKHMAL HAZIQ BIN MOHD IRWAN HAZUAN", c:"3 AL RAZI"},{n:"MUHAMMAD IRFAN BIN ABDULLAH", c:"3 AL RAZI"},{n:"MUHAMMAD NAUFAL BIN MOHD KHAIRUL NIZAM", c:"3 AL RAZI"},{n:"MUHAMMAD PUTRA HIQWAN RAYQAL BIN MOHD AFENDI", c:"3 AL RAZI"},{n:"MUHAMMAD RAYQAL RIFQIY BIN MOHD QATAMAN", c:"3 AL RAZI"},{n:"MUHAMMAD SYAMER HAIKAL BIN AWANG", c:"3 AL RAZI"},{n:"MUHAMMAD UMAR MUHAIMIN BIN SOBRYALAISA", c:"3 AL RAZI"},{n:"AIRIS DELISHA BINTI AL HADI", c:"3 AL RAZI"},{n:"AMNA NUR QAIREEN BINTI MOHD ZAMZIRO", c:"3 AL RAZI"},{n:"CHE UMMIE SAIDATUL KHATIJAH BINTI CHE ANUAR", c:"3 AL RAZI"},{n:"NIKITA NURZAHIRA BINTI MUHAMMAD NATRAH", c:"3 AL RAZI"},{n:"NORAKILA BINTI AHMAD JAMAL", c:"3 AL RAZI"},{n:"NUR AQEELA NAZIRA BINTI ROSLAN", c:"3 AL RAZI"},{n:"NUR DELISHA HUMAIRA BINTI MUHAMMAD ZUL AKRAAM", c:"3 AL RAZI"},{n:"NUR FAIQAH QURRATU AIN BINTI ABDUL FATTAH", c:"3 AL RAZI"},{n:"NUR FALISHA QAISARA BINTI MOHD FAHMI", c:"3 AL RAZI"},{n:"NUR HANANIA MIQAYLA BINTI HAIRUL ANUAR", c:"3 AL RAZI"},{n:"NUR IZZARA SOFEA BINTI MOHD ADIB", c:"3 AL RAZI"},{n:"NUR MARDHIAH SUMAYYAH BINTI MUHAMMAD SOFFIAN", c:"3 AL RAZI"},{n:"NUR NAURA AMANDA BINTI ABDUL MU'IZZ", c:"3 AL RAZI"},{n:"NUR WAHIDA NABILA BINTI SOFIAN", c:"3 AL RAZI"},{n:"NUR YASMEEN NAURA BINTI MOHD NORHAFIZAN", c:"3 AL RAZI"},{n:"NUR ZAHRA DHIYA BINTI MOHD FARID", c:"3 AL RAZI"},{n:"NUR ZAKIRAH KHALISYA BINTI MOHD ZULKARNAIN", c:"3 AL RAZI"},{n:"NURUL SYAMIMI QAISARA BINTI SHAHRUL ANUAR", c:"3 AL RAZI"},{n:"PUTRI QALISHA QISTINA BINTI MUHAMMAD JOLAKMAN", c:"3 AL RAZI"},{n:"TUAN NUR ALANIAH QHADRA BINTI TUAN ROSLEE", c:"3 AL RAZI"},{n:"ZARA HUMAIRA BINTI MOHD SHAHMARULL FAIZULL", c:"3 AL RAZI"},
 
             // YEAR 4
             {n:"DANIAL NAUFAL BIN ABDUL HANIF SAFWAN", c:"4 AL BIRUNI"},{n:"IRSYAD ZIYAD BIN ISKANDAR", c:"4 AL BIRUNI"},{n:"MUHAMAD KHALIQ HABEEB BIN MOHD KHAIRIL", c:"4 AL BIRUNI"},{n:"MUHAMMAD ADAM MUKHRIZ BIN BAHARUDDIN", c:"4 AL BIRUNI"},{n:"MUHAMMAD AFIQ IRFAN BIN ABDUL AZIZ", c:"4 AL BIRUNI"},{n:"MUHAMMAD AQIL KHALISH BIN AZRUL AZUAN", c:"4 AL BIRUNI"},{n:"MUHAMMAD DHUHA HANNAN BIN MOHD ROSTAM", c:"4 AL BIRUNI"},{n:"MUHAMMAD HAIQAL DANIEL BIN ZAKARIA", c:"4 AL BIRUNI"},{n:"MUHAMMAD HASBULLAH BIN MOHD NAPI", c:"4 AL BIRUNI"},{n:"MUHAMMAD IRSYADUDDIN BIN AZMI", c:"4 AL BIRUNI"},{n:"MUHAMMAD NAQIB BIN AGUNG SUPRIYANTO", c:"4 AL BIRUNI"},{n:"MUHAMMAD RIZQI BIN SYAHRIL", c:"4 AL BIRUNI"},{n:"PUTERA NOAH ZAYDAN BIN ZULHELMI", c:"4 AL BIRUNI"},{n:"TOBARI BIN NOR AZLAN", c:"4 AL BIRUNI"},{n:"TUAN MUHAMMAD EMIL HARRAZ BIN TUAN MUHAMMAD MASRI", c:"4 AL BIRUNI"},{n:"WAN MUHAMMAD AMMAR BIN WAN AZMAN", c:"4 AL BIRUNI"},{n:"ADRIANA FARANISA BINTI MOHD HERISAH", c:"4 AL BIRUNI"},{n:"AISYA HADIJA BINTI ASRI", c:"4 AL BIRUNI"},{n:"ASSYIFATU HAIESHA BINTI MOHD HASDI", c:"4 AL BIRUNI"},{n:"FATIN SAFIYA BINTI ROSLE", c:"4 AL BIRUNI"},{n:"MARYAM MALEEQA BINTI MOHD ABASRI", c:"4 AL BIRUNI"},{n:"NOR AZRATUL DARWIYAH BINTI ZULKARNINE", c:"4 AL BIRUNI"},{n:"NUR AINUN HUMAIRA BINTI MOHAMMAD KHAIRUDIN ASWADI", c:"4 AL BIRUNI"},{n:"NUR AMEERA ADIERA BINTI MOHD KHAIRUZAM @ AZROL", c:"4 AL BIRUNI"},{n:"NUR ARISHA MAISARA BINTI MAZLAN", c:"4 AL BIRUNI"},{n:"NUR DAMIA HAZWANI BINTI MOHD SHADAT", c:"4 AL BIRUNI"},{n:"NUR DHIA AMMARA BINTI MUHAMAD HARIS", c:"4 AL BIRUNI"},{n:"NUR FARISHA DIANDRA BINTI AHMAD FAZIL", c:"4 AL BIRUNI"},{n:"NUR FATHIA ASHEEQA BINTI MOHD ZULLY HAZREE", c:"4 AL BIRUNI"},{n:"NUR IZZ ZARA INARA BINTI MOHD KHAIRRUL KHITTWAN", c:"4 AL BIRUNI"},{n:"NUR SYAZMA BINTI ABD RASID", c:"4 AL BIRUNI"},{n:"NURUL JANNAH BINTI MOHD KHIROOL", c:"4 AL BIRUNI"},{n:"PUTERI NUR JUVTA BINTI MOHD TAMIZI", c:"4 AL BIRUNI"},{n:"TUAN NUR FATHIHA ARISSA BINTI TUAN MOHD FAIZAL", c:"4 AL BIRUNI"},{n:"UMMI HUMAIRA BINTI MOHAMAD BORHANUDIN", c:"4 AL BIRUNI"},{n:"WAN ATIYYAH BINTI WAN MOHAMED ASYRAF", c:"4 AL BIRUNI"},{n:"WAN NUR INSYIRAH BINTI WAN MOHD ARIF AMIRUDDIN", c:"4 AL BIRUNI"},
@@ -263,73 +133,54 @@
             {n:"AHMAD DANIAL HAZEEQ BIN AHMAD BARDAIN", c:"5 AL KINDI"},{n:"AHMAD DANISH IKHWAN BIN CHHEANG RIN", c:"5 AL KINDI"},{n:"AHZA MUJAHID BIN MOHD KAMARULZAMAN", c:"5 AL KINDI"},{n:"MOHAMAD ZARIF QUSYAIRI BIN AHMAD ZAKI", c:"5 AL KINDI"},{n:"MUHAMAD ADAM ARIQ BIN ABDULLAH", c:"5 AL KINDI"},{n:"MUHAMAD RAFIUDDIN BIN MUHAMAD RAHMAN", c:"5 AL KINDI"},{n:"MUHAMMAD ALIF DANIAL BIN MOHD AZLAN", c:"5 AL KINDI"},{n:"MUHAMMAD ALIF HAIDAR BIN MOHD ZAHID", c:"5 AL KINDI"},{n:"MUHAMMAD AMMAR KHALISH BIN ABDULLAH", c:"5 AL KINDI"},{n:"MUHAMMAD AMMAR RAYYAN BIN MOHD HAMIZI", c:"5 AL KINDI"},{n:"MUHAMMAD AMMAR ZAFRAN BIN MOHD SYAHRIZAI", c:"5 AL KINDI"},{n:"MUHAMMAD ARJUNA RIZQIN BIN MOHD RAZREEN", c:"5 AL KINDI"},{n:"MUHAMMAD ASHRAFF BIN ZULKIFLI", c:"5 AL KINDI"},{n:"MUHAMMAD DANIEL DARWISH BIN MOHD NORHAPIZA", c:"5 AL KINDI"},{n:"MUHAMMAD FAKHRI BIN ROSMADI", c:"5 AL KINDI"},{n:"MUHAMMAD HARIZ ADRIAN BIN ASMADI", c:"5 AL KINDI"},{n:"MUHAMMAD ISYRAF ZAYYAN BIN MOHD ROSLAN", c:"5 AL KINDI"},{n:"MUHAMMAD MUNIFF MUHAIMIN BIN ABU HASSAN", c:"5 AL KINDI"},{n:"MUHAMMAD NAQIB AL AMIN BIN MOHD NIZAM", c:"5 AL KINDI"},{n:"MUHAMMAD NUR LUTFI BIN ABDUL HAKIM", c:"5 AL KINDI"},{n:"MUHAMMAD RAFIQ ZAFRAN BIN MOHD RIZUAN", c:"5 AL KINDI"},{n:"MUHAMMAD RAYYAN IKHWAN BIN MOHD JALANI", c:"5 AL KINDI"},{n:"ADYRA AZZAHRA BINTI AZMADI", c:"5 AL KINDI"},{n:"CHE KU ESHAL AZZALEA BINTI CHE KU ALIAS", c:"5 AL KINDI"},{n:"DANISHA ELRIEKA SOFIA BINTI ABDUL KARIM", c:"5 AL KINDI"},{n:"HANIA SYAKIRA BINTI ABDULLAH", c:"5 AL KINDI"},{n:"NUR AIN HUMAIRA BINTI MAZLAN", c:"5 AL KINDI"},{n:"NUR ANEESHA BALQIS BINTI AHMAD", c:"5 AL KINDI"},{n:"NUR FAKHIRA AMANI BINTI MOHD FAHMI", c:"5 AL KINDI"},{n:"NUR FARIESHA ADRIANA BINTI ABDUL AZIZ", c:"5 AL KINDI"},{n:"NUR FATHIYATUSH SHAKIRA BINTI SUHAIDI", c:"5 AL KINDI"},{n:"NUR NADIRA HUDA BINTI MUHAMMAD KHAIRUL NIZAM", c:"5 AL KINDI"},{n:"NUR SAFIYYA MAISARA BINTI ABDUL FATTAH", c:"5 AL KINDI"},{n:"NURDHIA ARISHA BINTI ZULKIFLI", c:"5 AL KINDI"},{n:"NURUL AMRA NASRINA BINTI ZAIDI", c:"5 AL KINDI"},{n:"PUTERI NUR UMAIRAH BINTI MOHD AMIRUL ANHAR", c:"5 AL KINDI"},{n:"RAJA NORAMMARA ARISSA BINTI RAJA MOHAMAD AZLAN", c:"5 AL KINDI"},{n:"SITI DEWINA RAMADHANI BINTI ABDUL SALAM", c:"5 AL KINDI"},{n:"SITI ZARINA BINTI MOHD ZAMRI", c:"5 AL KINDI"},{n:"DHIA QAISARAH SOLEHAH BTINTI MOHD HELMI", c:"5 AL KINDI"},
 
             // YEAR 6
-            {n:"ATIQURRAHMAN BIN MOHD YUSOFF", c:"6 AL BIRUNI"},{n:"FAKKUAN NAZREEN BIN MOHD NOR BADRUL HISHAM", c:"6 AL BIRUNI"},{n:"IBHAR FITRI BIN ISMARUDIN", c:"6 AL BIRUNI"},{n:"MUHAMAD AZFAR AISY BIN AFTAR", c:"6 AL BIRUNI"},{n:"MUHAMAD YUNUS BIN ABDUL FATTAH", c:"6 AL BIRUNI"},{n:"MUHAMMAD ADAM SAIFULLAH BIN SAMZULI", c:"6 AL BIRUNI"},{n:"MUHAMMAD ADIB ADWA BIN CHE ISMAIL", c:"6 AL BIRUNI"},{n:"MUHAMMAD AKID BIN SUTILAN", c:"6 AL BIRUNI"},{n:"MUHAMMAD AKIF HAKIMIE BIN MOHD REMI", c:"6 AL BIRUNI"},{n:"MUHAMMAD AMZAR UZAIR BIN SHARUMNIZAM", c:"6 AL BIRUNI"},{n:"MUHAMMAD AQLAN WILDAN BIN SALADIN", c:"6 AL BIRUNI"},{n:"MUHAMMAD DANIAL HAZIQ BIN MOHD KHAIRRUL KHITTWAN", c:"6 AL BIRUNI"},{n:"MUHAMMAD FARIS DANISH BIN MOHD FAIRUZ", c:"6 AL BIRUNI"},{n:"MUHAMMAD HAZIQ RAYYAN BIN SHAHRUL ANUAR", c:"6 AL BIRUNI"},{n:"MUHAMMAD RAYHAN BIN MOHD SABRI", c:"6 AL BIRUNI"},{n:"MUHAMMAD SYARIF DARWISY BIN MOHD SYAIFFULDIN", c:"6 AL BIRUNI"},{n:"NUR IMAN HAKIMI BIN NORAWI", c:"6 AL BIRUNI"},{n:"TUAN MOHAMMAD IBNU AFFAN BIN TUAN MOHD SANUSI", c:"6 AL BIRUNI"},{n:"WAN ZIQRI HAKIM BIN WAN ZULKIFLI", c:"6 AL BIRUNI"},{n:"AMNAA NUR SALEEMA BINTI ABDUL JALIL", c:"6 AL BIRUNI"},{n:"AMNII NUR AMEENA BINTI ABDUL JALIL", c:"6 AL BIRUNI"},{n:"ARISYA IZARA BINTI ABDUL RAUFF", c:"6 AL BIRUNI"},{n:"CHE ENGKU NUR QASEH ARISSA BINTI CHE ENGKU ISKANDAR", c:"6 AL BIRUNI"},{n:"HASYA HAFIYA BINTI MOHD SHASRUL HASRA", c:"6 AL BIRUNI"},{n:"KHADEEJA AINA BINTI HASNAN", c:"6 AL BIRUNI"},{n:"MAWAR NURHUMAIRA BINTI ABU BAKAR", c:"6 AL BIRUNI"},{n:"NORDANILA BINTI ABDULLAH", c:"6 AL BIRUNI"},{n:"NUR FATHIA AQILAH BINTI KOLEK @ AZRUL", c:"6 AL BIRUNI"},{n:"NUR FITRI NATASYA BINTI SOFIAN", c:"6 AL BIRUNI"},{n:"NUR HANANIA UZMA BINTI MUHAMAD HAFIZI", c:"6 AL BIRUNI"},{n:"NUR HANIS ARISSA BINTI ABDUR RAHMAN", c:"6 AL BIRUNI"},{n:"NUR INTAN FARHANA BINTI ZAKARIA", c:"6 AL BIRUNI"},{n:"PUTERI FARIZA DAYANA BINTI SUTRISNO PRAPTO PARDI", c:"6 AL BIRUNI"},{n:"PUTRI AS SYAFA ATHIRAH BINTI MOHD RAZDI", c:"6 AL BIRUNI"},{n:"QHADEEJA AINNUR AISYA BINTI ANWAR SHAFIQ", c:"6 AL BIRUNI"},{n:"WAN NUR ARIANA BINTI WAN MOHD NASIR", c:"6 AL BIRUNI"},{n:"NUR NADIRAH BINTI ABDUL MUAEIZ", c:"6 AL BIRUNI"},
-            {n:"ARMAAN YOUSSEF BIN AMIRUDDIN", c:"6 AL FARABI"},{n:"DANNIZ FIRDAUSY HASSAN BIN TATUH", c:"6 AL FARABI"},{n:"MUHAMMAD AFIQ KHALIF BIN MOHD SAIFUL", c:"6 AL FARABI"},{n:"MUHAMMAD AMMAR ARYAN BIN MOHD KHAIRI", c:"6 AL FARABI"},{n:"MUHAMMAD AMMAR RIZQI BIN ROSDI", c:"6 AL FARABI"},{n:"MUHAMMAD AMZAR IKHWAN BIN MOHD KHAIRUL ANUAR", c:"6 AL FARABI"},{n:"MUHAMMAD ASHSHAFF RAQIB BIN MOHD ASHROFF", c:"6 AL FARABI"},{n:"MUHAMMAD EIMRAN ARIEF BIN MUHAMAD NASRI", c:"6 AL FARABI"},{n:"MUHAMMAD HARRAZ UKAIL BIN MOHD FAIZAL", c:"6 AL FARABI"},{n:"MUHAMMAD IBNU QUSYAIRI BIN MOHD ARIS", c:"6 AL FARABI"},{n:"MUHAMMAD ISKANDAR BIN SYAHRIL", c:"6 AL FARABI"},{n:"MUHAMMAD NADEEM IQBAL BIN ABDUL RAFI", c:"6 AL FARABI"},{n:"MUHAMMAD NAUFAL AL AMIN BIN MOHD NIZAM", c:"6 AL FARABI"},{n:"MUHAMMAD RAYYAN RIZQIN BIN MOHD QATAMAN", c:"6 AL FARABI"},{n:"MUHAMMAD RIZQY FAKHRURRAZI BIN MOHD SAFWAN SARIY", c:"6 AL FARABI"},{n:"MUHAMMAD SOLIHIN BIN ZAINUDDIN", c:"6 AL FARABI"},{n:"NASRI BIN THIRADED NETH", c:"6 AL FARABI"},{n:"NIK AHMAD AMIR FIRDAUS BIN NIK SAMSI ANUAR", c:"6 AL FARABI"},{n:"RAJA NORFARESH RIEZQIN BIN RAJA ALI", c:"6 AL FARABI"},{n:"TUAN MUHAMMAD FATIH AZRI BIN TUAN MOHD FAIZAL", c:"6 AL FARABI"},{n:"ADRA NUR QAIREEN BINTI MOHD ZAMZIRO", c:"6 AL FARABI"},{n:"ARIANA ALISHA BINTI MOHD AMRAN", c:"6 AL FARABI"},{n:"NOR ELLFALINA BINTI BAHARUD DIN", c:"6 AL FARABI"},{n:"NUR AIN DAMIA BINTI ROSLE", c:"6 AL FARABI"},{n:"NUR ALISHA QAISARA BINTI ROSLAN", c:"6 AL FARABI"},{n:"NUR AMNI HANANI BINTI MOHD REZUAN", c:"6 AL FARABI"},{n:"NUR DHIA ADELIA BINTI MOHD ZAMHAM", c:"6 AL FARABI"},{n:"NUR IRIS RANIA BINTI MOHD SAIFULLAH", c:"6 AL FARABI"},{n:"NUR RANIA FARIHAH BINTI MOHD FAREZ IZWAN", c:"6 AL FARABI"},{n:"NURUL AIN ZAHRA BINTI ZAIDI", c:"6 AL FARABI"},{n:"QHAIRA HUSNA BINTI SHARI HAMDAN", c:"6 AL FARABI"},{n:"RUZILA BINTI MOHD RIDZUAN", c:"6 AL FARABI"},{n:"SYASYA QAISARA BINTI TUAN SHUHAIRIZAM", c:"6 AL FARABI"},{n:"SYULAIQA BATRISYA BINTI SULAIMAN", c:"6 AL FARABI"},{n:"TENGKU NUR KHASIF RANIA BINTI KAMARUL AZUAN", c:"6 AL FARABI"},{n:"UMI NUR ARSYIKIN NAJWAL BINTI ABDULLAH", c:"6 AL FARABI"},{n:"NUR ZARA SEDRISHA BINTI MOHD FIRDAUS AZAM", c:"6 AL FARABI"},
-            {n:"AMMAR ZIQRI BIN ZAHARI", c:"6 AL KINDI"},{n:"MOHAMAD HANIF BIN MOHAMAD FAIZIE", c:"6 AL KINDI"},{n:"MOHAMAD MIKAIL BIN JAMIL", c:"6 AL KINDI"},{n:"MUHAMMAD ADAM BIN ASHAARI", c:"6 AL KINDI"},{n:"MUHAMMAD ADRIAN MIKHAIL BIN MOHD ABASRI", c:"6 AL KINDI"},{n:"MUHAMMAD AFIRASH IKHWAN BIN MOHD IRWAN HAZUAN", c:"6 AL KINDI"},{n:"MUHAMMAD AIDIL HARITH BIN HAIRULAZAM", c:"6 AL KINDI"},{n:"MUHAMMAD AIZAT AMZAR BIN MOHD YAAKOB", c:"6 AL KINDI"},{n:"MUHAMMAD AMIN SYAZHAN BIN BADRUL HISYAM", c:"6 AL KINDI"},{n:"MUHAMMAD AQIF FITRI BIN MOHD ZAMRI", c:"6 AL KINDI"},{n:"MUHAMMAD ARFA HASIF BIN MOHD SHAMSURI", c:"6 AL KINDI"},{n:"MUHAMMAD ASYRAF RIZQI BIN SHAHRUL NIZAM", c:"6 AL KINDI"},{n:"MUHAMMAD FARIZ HAKIMIE BIN ALIAS", c:"6 AL KINDI"},{n:"MUHAMMAD IQKLAS AZIQ BIN MUHAMMAD", c:"6 AL KINDI"},{n:"MUHAMMAD NOR IKHWAN BIN ABDULLAH", c:"6 AL KINDI"},{n:"MUHAMMAD SHAH AIDIL BIN SULAIMAN", c:"6 AL KINDI"},{n:"MUHAMMAD SHAMRIRULLOH BIN MUHAMMAD SAMRI", c:"6 AL KINDI"},{n:"MUHAMMAD THAQIF AFKAR BIN RUZLAN", c:"6 AL KINDI"},{n:"RAJA AQIL AISY HAFIDH BIN RAJA AZMAN", c:"6 AL KINDI"},{n:"AMMARA MALAEKA BINTI ABDUL 'AZHIM", c:"6 AL KINDI"},{n:"NUR AINA MAISARAH BINTI MUHAMMAD HAFIZAN", c:"6 AL KINDI"},{n:"NUR BATRISYA MAISARA BINTI MAZLAN", c:"6 AL KINDI"},{n:"NUR IMAN WADHIHAH BINTI PAXRURAZI", c:"6 AL KINDI"},{n:"NUR NAURAH ASSYIFAA BINTI ISMAIL", c:"6 AL KINDI"},{n:"NUR RAISHA AMNI BINTI MOHD RASHID", c:"6 AL KINDI"},{n:"NUR SYAFA AQILA BINTI ABDUL MU'IZ", c:"6 AL KINDI"},{n:"NUR SYAZA NABILAH BINTI MUHAMAD SHAZUAN", c:"6 AL KINDI"},{n:"NURUL AIN BATRISYIA BINTI ZULNIZAN", c:"6 AL KINDI"},{n:"NURUL SYAZWANI HUSNA BINTI YAHYA", c:"6 AL KINDI"},{n:"PUTERI NUR DAMIA MAISARAH BINTI MOHAMAD HAFIZ", c:"6 AL KINDI"},{n:"PUTRI NUR AIN NATASYA BINTI AMRAN", c:"6 AL KINDI"},{n:"PUTRI NUR SYAWAL DARWISYA BINTI MOHD HISHAM", c:"6 AL KINDI"},{n:"WAN NUR ALEEYA MAISARA BINTI WAN MOHD HAFIZUDDIN", c:"6 AL KINDI"},{n:"WAN NUR ANEESA BINTI WAN AZMAN", c:"6 AL KINDI"},{n:"WAN NUR MAWARDAH SAFIYYA BINTI WAN MUSTAFA", c:"6 AL KINDI"},{n:"NUR QAIRINA AMANI BINTI MOHD JUNAID", c:"6 AL KINDI"}
+            {n:"ATIQURRAHMAN BIN MOHD YUSOFF", c:"6 AL BIRUNI"},{n:"FAKKUAN NAZREEN BIN MOHD NOR BADRUL HISHAM", c:"6 AL BIRUNI"},{n:"IBHAR FITRI BIN ISMARUDIN", c:"6 AL BIRUNI"},{n:"MUHAMAD AZFAR AISY BIN AFTAR", c:"6 AL BIRUNI"},{n:"MUHAMAD YUNUS BIN ABDUL FATTAH", c:"6 AL BIRUNI"},{n:"MUHAMMAD ADAM SAIFULLAH BIN SAMZULI", c:"6 AL BIRUNI"},{n:"MUHAMMAD ADIB ADWA BIN CHE ISMAIL", c:"6 AL BIRUNI"},{n:"MUHAMMAD AKID BIN SUTILAN", c:"6 AL BIRUNI"},{n:"MUHAMMAD AKIF HAKIMIE BIN MOHD REMI", c:"6 AL BIRUNI"},{n:"MUHAMMAD AMZAR UZAIR BIN SHARUMNIZAM", c:"6 AL BIRUNI"},{n:"MUHAMMAD AQLAN WILDAN BIN SALADIN", c:"6 AL BIRUNI"},{n:"MUHAMMAD DANIAL HAZIQ BIN MOHD KHAIRRUL KHITTWAN", c:"6 AL BIRUNI"},{n:"MUHAMMAD FARIS DANISH BIN MOHD FAIRUZ", c:"6 AL BIRUNI"},{n:"MUHAMMAD HAZIQ RAYYAN BIN SHAHRUL ANUAR", c:"6 AL BIRUNI"},{n:"MUHAMMAD RAYHAN BIN MOHD SABRI", c:"6 AL BIRUNI"},{n:"MUHAMMAD SYARIF DARWISY BIN MOHD SYAIFFULDIN", c:"6 AL BIRUNI"},{n:"NUR IMAN HAKIMI BIN NORAWI", c:"6 AL BIRUNI"},{n:"TUAN MOHAMMAD IBNU AFFAN BIN TUAN MOHD SANUSI", c:"6 AL BIRUNI"},{n:"WAN ZIQRI HAKIM BIN WAN ZULKIFLI", c:"6 AL BIRUNI"},{n:"AMNAA NUR SALEEMA BINTI ABDUL JALIL", c:"6 AL BIRUNI"},{n:"AMNII NUR AMEENA BINTI ABDUL JALIL", c:"6 AL BIRUNI"},{n:"ARISYA IZARA BINTI ABDUL RAUFF", c:"6 AL BIRUNI"},{n:"CHE ENGKU NUR QASEH ARISSA BINTI CHE ENGKU ISKANDAR", c:"6 AL BIRUNI"},{n:"HASYA HAFIYA BINTI MOHD SHASRUL HASRA", c:"6 AL BIRUNI"},{n:"KHADEEJA AINA BINTI HASNAN", c:"6 AL BIRUNI"},{n:"MAWAR NURHUMAIRA BINTI ABU BAKAR", c:"6 AL BIRUNI"},{n:"NORDANILA BINTI ABDULLAH", c:"6 AL BIRUNI"},{n:"NUR FATHIA AQILAH BINTI KOLEK @ AZRUL", c:"6 AL BIRUNI"},{n:"NUR FITRI NATASYA BINTI SOFIAN", c:"6 AL BIRUNI"},{n:"NUR HANANIA UZMA BINTI MUHAMAD HAFIZI", c:"6 AL BIRUNI"},{n:"NUR HANIS ARISSA BINTI ABDUR RAHMAN", c:"6 AL BIRUNI"},{n:"NUR INTAN FARHANA BINTI ZAKARIA", c:"6 AL BIRUNI"},{n:"PUTERI FARIZA DAYANA BINTI SUTRISNO PRAPTO PARDI", c:"6 AL BIRUNI"},{n:"PUTRI AS SYAFA ATHIRAH BINTI MOHD RAZDI", c:"6 AL BIRUNI"},{n:"QHADEEJA AINNUR AISYA BINTI ANWAR SHAFIQ", c:"6 AL BIRUNI"},{n:"WAN NUR ARIANA BINTI WAN MOHD NASIR", c:"6 AL BIRUNI"},{n:"NUR NADIRAH BINTI ABDUL MUAEIZ", c:"6 AL BIRUNI"},{n:"ARMAAN YOUSSEF BIN AMIRUDDIN", c:"6 AL FARABI"},{n:"DANNIZ FIRDAUSY HASSAN BIN TATUH", c:"6 AL FARABI"},{n:"MUHAMMAD AFIQ KHALIF BIN MOHD SAIFUL", c:"6 AL FARABI"},{n:"MUHAMMAD AMMAR ARYAN BIN MOHD KHAIRI", c:"6 AL FARABI"},{n:"MUHAMMAD AMMAR RIZQI BIN ROSDI", c:"6 AL FARABI"},{n:"MUHAMMAD AMZAR IKHWAN BIN MOHD KHAIRUL ANUAR", c:"6 AL FARABI"},{n:"MUHAMMAD ASHSHAFF RAQIB BIN MOHD ASHROFF", c:"6 AL FARABI"},{n:"MUHAMMAD EIMRAN ARIEF BIN MUHAMAD NASRI", c:"6 AL FARABI"},{n:"MUHAMMAD HARRAZ UKAIL BIN MOHD FAIZAL", c:"6 AL FARABI"},{n:"MUHAMMAD IBNU QUSYAIRI BIN MOHD ARIS", c:"6 AL FARABI"},{n:"MUHAMMAD ISKANDAR BIN SYAHRIL", c:"6 AL FARABI"},{n:"MUHAMMAD NADEEM IQBAL BIN ABDUL RAFI", c:"6 AL FARABI"},{n:"MUHAMMAD NAUFAL AL AMIN BIN MOHD NIZAM", c:"6 AL FARABI"},{n:"MUHAMMAD RAYYAN RIZQIN BIN MOHD QATAMAN", c:"6 AL FARABI"},{n:"MUHAMMAD RIZQY FAKHRURRAZI BIN MOHD SAFWAN SARIY", c:"6 AL FARABI"},{n:"MUHAMMAD SOLIHIN BIN ZAINUDDIN", c:"6 AL FARABI"},{n:"NASRI BIN THIRADED NETH", c:"6 AL FARABI"},{n:"NIK AHMAD AMIR FIRDAUS BIN NIK SAMSI ANUAR", c:"6 AL FARABI"},{n:"RAJA NORFARESH RIEZQIN BIN RAJA ALI", c:"6 AL FARABI"},{n:"TUAN MUHAMMAD FATIH AZRI BIN TUAN MOHD FAIZAL", c:"6 AL FARABI"},{n:"ADRA NUR QAIREEN BINTI MOHD ZAMZIRO", c:"6 AL FARABI"},{n:"ARIANA ALISHA BINTI MOHD AMRAN", c:"6 AL FARABI"},{n:"NOR ELLFALINA BINTI BAHARUD DIN", c:"6 AL FARABI"},{n:"NUR AIN DAMIA BINTI ROSLE", c:"6 AL FARABI"},{n:"NUR ALISHA QAISARA BINTI ROSLAN", c:"6 AL FARABI"},{n:"NUR AMNI HANANI BINTI MOHD REZUAN", c:"6 AL FARABI"},{n:"NUR DHIA ADELIA BINTI MOHD ZAMHAM", c:"6 AL FARABI"},{n:"NUR IRIS RANIA BINTI MOHD SAIFULLAH", c:"6 AL FARABI"},{n:"NUR RANIA FARIHAH BINTI MOHD FAREZ IZWAN", c:"6 AL FARABI"},{n:"NURUL AIN ZAHRA BINTI ZAIDI", c:"6 AL FARABI"},{n:"QHAIRA HUSNA BINTI SHARI HAMDAN", c:"6 AL FARABI"},{n:"RUZILA BINTI MOHD RIDZUAN", c:"6 AL FARABI"},{n:"SYASYA QAISARA BINTI TUAN SHUHAIRIZAM", c:"6 AL FARABI"},{n:"SYULAIQA BATRISYA BINTI SULAIMAN", c:"6 AL FARABI"},{n:"TENGKU NUR KHASIF RANIA BINTI KAMARUL AZUAN", c:"6 AL FARABI"},{n:"UMI NUR ARSYIKIN NAJWAL BINTI ABDULLAH", c:"6 AL FARABI"},{n:"NUR ZARA SEDRISHA BINTI MOHD FIRDAUS AZAM", c:"6 AL FARABI"},{n:"AMMAR ZIQRI BIN ZAHARI", c:"6 AL KINDI"},{n:"MOHAMAD HANIF BIN MOHAMAD FAIZIE", c:"6 AL KINDI"},{n:"MOHAMAD MIKAIL BIN JAMIL", c:"6 AL KINDI"},{n:"MUHAMMAD ADAM BIN ASHAARI", c:"6 AL KINDI"},{n:"MUHAMMAD ADRIAN MIKHAIL BIN MOHD ABASRI", c:"6 AL KINDI"},{n:"MUHAMMAD AFIRASH IKHWAN BIN MOHD IRWAN HAZUAN", c:"6 AL KINDI"},{n:"MUHAMMAD AIDIL HARITH BIN HAIRULAZAM", c:"6 AL KINDI"},{n:"MUHAMMAD AIZAT AMZAR BIN MOHD YAAKOB", c:"6 AL KINDI"},{n:"MUHAMMAD AMIN SYAZHAN BIN BADRUL HISYAM", c:"6 AL KINDI"},{n:"MUHAMMAD AQIF FITRI BIN MOHD ZAMRI", c:"6 AL KINDI"},{n:"MUHAMMAD ARFA HASIF BIN MOHD SHAMSURI", c:"6 AL KINDI"},{n:"MUHAMMAD ASYRAF RIZQI BIN SHAHRUL NIZAM", c:"6 AL KINDI"},{n:"MUHAMMAD FARIZ HAKIMIE BIN ALIAS", c:"6 AL KINDI"},{n:"MUHAMMAD IQKLAS AZIQ BIN MUHAMMAD", c:"6 AL KINDI"},{n:"MUHAMMAD NOR IKHWAN BIN ABDULLAH", c:"6 AL KINDI"},{n:"MUHAMMAD SHAH AIDIL BIN SULAIMAN", c:"6 AL KINDI"},{n:"MUHAMMAD SHAMRIRULLOH BIN MUHAMMAD SAMRI", c:"6 AL KINDI"},{n:"MUHAMMAD THAQIF AFKAR BIN RUZLAN", c:"6 AL KINDI"},{n:"RAJA AQIL AISY HAFIDH BIN RAJA AZMAN", c:"6 AL KINDI"},{n:"AMMARA MALAEKA BINTI ABDUL 'AZHIM", c:"6 AL KINDI"},{n:"NUR AINA MAISARAH BINTI MUHAMMAD HAFIZAN", c:"6 AL KINDI"},{n:"NUR BATRISYA MAISARA BINTI MAZLAN", c:"6 AL KINDI"},{n:"NUR IMAN WADHIHAH BINTI PAXRURAZI", c:"6 AL KINDI"},{n:"NUR NAURAH ASSYIFAA BINTI ISMAIL", c:"6 AL KINDI"},{n:"NUR RAISHA AMNI BINTI MOHD RASHID", c:"6 AL KINDI"},{n:"NUR SYAFA AQILA BINTI ABDUL MU'IZ", c:"6 AL KINDI"},{n:"NUR SYAZA NABILAH BINTI MUHAMAD SHAZUAN", c:"6 AL KINDI"},{n:"NURUL AIN BATRISYIA BINTI ZULNIZAN", c:"6 AL KINDI"},{n:"NURUL SYAZWANI HUSNA BINTI YAHYA", c:"6 AL KINDI"},{n:"PUTERI NUR DAMIA MAISARAH BINTI MOHAMAD HAFIZ", c:"6 AL KINDI"},{n:"PUTRI NUR AIN NATASYA BINTI AMRAN", c:"6 AL KINDI"},{n:"PUTRI NUR SYAWAL DARWISYA BINTI MOHD HISHAM", c:"6 AL KINDI"},{n:"WAN NUR ALEEYA MAISARA BINTI WAN MOHD HAFIZUDDIN", c:"6 AL KINDI"},{n:"WAN NUR ANEESA BINTI WAN AZMAN", c:"6 AL KINDI"},{n:"WAN NUR MAWARDAH SAFIYYA BINTI WAN MUSTAFA", c:"6 AL KINDI"},{n:"NUR QAIRINA AMANI BINTI MOHD JUNAID", c:"6 AL KINDI"}
         ];
 
-        /* ================= 2. SMART GRAMMAR LOGIC ================= */
-        // We split words into Singular and Plural pools for perfect grammar
-        const VOCAB = {
-            1: { 
-                singular: { s: ["My mom", "The cat", "He", "Adam", "She"], v: ["likes", "eats", "sees", "has", "kicks"] },
-                plural:   { s: ["I", "We", "They", "The boys", "You"], v: ["like", "eat", "see", "have", "kick"] },
-                c: ["apples", "a rat", "a ball", "cake", "a toy"] 
-            },
-            2: { 
-                singular: { s: ["My father", "The bird", "Ali", "She", "The teacher"], v: ["washes", "sits", "has", "cooks", "draws"] },
-                plural:   { s: ["We", "They", "My friends", "You", "The girls"], v: ["wash", "sit", "have", "cook", "draw"] },
-                c: ["the car", "in the tree", "a pen", "dinner", "a picture"] 
-            },
-            3: { 
-                singular: { s: ["The tiger", "My teacher", "The baby", "He", "A pilot"], v: ["hunts", "writes", "drinks", "flies", "eats"] },
-                plural:   { s: ["Tigers", "Doctors", "They", "We", "Farmers"], v: ["hunt", "help", "drink", "fly", "eat"] },
-                c: ["deer", "a letter", "milk", "planes", "vegetables"] 
-            },
-            4: { 
-                // Past tense is the same for singular and plural
-                singular: { s: ["The turtle", "Yesterday I", "The chef", "He", "The boy"], v: ["laid", "played", "cooked", "visited", "helped"] },
-                plural:   { s: ["The turtles", "We", "They", "The boys", "My friends"], v: ["laid", "played", "cooked", "visited", "helped"] },
-                c: ["eggs", "games", "curry", "the zoo", "his mother"] 
-            },
-            5: { 
-                singular: { s: ["The driver", "My mom", "She", "He", "The student"], v: ["drives", "hugs", "loves", "studies", "eats"] },
-                plural:   { s: ["Malaysians", "We", "Parents", "They", "Students"], v: ["drive", "hug", "love", "study", "eat"] },
-                c: ["carefully", "kids", "Nasi Lemak", "hard", "healthy food"] 
-            },
-            6: { 
-                // Modals/Future are the same for singular and plural
-                singular: { s: ["Pollution", "Kindness", "He", "She", "Robots"], v: ["will help", "must save", "harms", "makes", "brings"] },
-                plural:   { s: ["We", "They", "You", "Humans", "Friends"], v: ["will help", "must save", "harm", "make", "bring"] },
-                c: ["nature", "the sea", "animals", "friends", "success"] 
-            }
+        /* ================= 2. CONTEXT-BASED GRAMMAR LOGIC ================= */
+        // We select a CONTEXT (e.g., Food, Sport) first to ensure meaning.
+        const CONTEXTS = {
+            1: [
+                { s: ["My mom", "He", "She", "The cat", "Ali"], v: ["likes", "eats", "wants"], c: ["an apple", "some cake", "a fish", "milk"] },
+                { s: ["We", "They", "The boys", "My friends"], v: ["play", "like", "love"], c: ["football", "games", "sports"] },
+                { s: ["I", "You", "We", "They"], v: ["have", "want", "see"], c: ["a new toy", "a big ball", "a red car"] }
+            ],
+            2: [
+                { s: ["My father", "He", "The man", "Ali"], v: ["washes", "drives", "cleans"], c: ["the car", "a van", "the bike"] },
+                { s: ["A bird", "The monkey", "It", "The cat"], v: ["sits", "sleeps", "lives"], c: ["in the tree", "on the mat", "in a house"] },
+                { s: ["The teacher", "She", "My friend"], v: ["writes", "draws", "reads"], c: ["a book", "a picture", "a story"] }
+            ],
+            3: [
+                { s: ["A chef", "My mother", "He"], v: ["cooks", "bakes", "makes"], c: ["delicious food", "a cake", "bread"] },
+                { s: ["Tigers", "Lions", "They"], v: ["hunt", "chase", "eat"], c: ["deer", "meat", "other animals"] },
+                { s: ["We", "The girls", "They"], v: ["enjoy", "like", "love"], c: ["reading", "swimming", "dancing"] }
+            ],
+            4: [
+                { s: ["We", "They", "The students"], v: ["visited", "cleaned", "celebrated"], c: ["the zoo", "the classroom", "Teachers Day"] },
+                { s: ["The boy", "He", "Ali"], v: ["helped", "thanked", "called"], c: ["his mother", "the teacher", "his friend"] },
+                { s: ["The turtle", "It"], v: ["laid", "buried"], c: ["eggs", "its eggs"] }
+            ],
+            5: [
+                { s: ["Drivers", "We", "People"], v: ["drive", "walk", "cross"], c: ["carefully", "safely", "slowly"] },
+                { s: ["Malaysians", "We", "Most people"], v: ["love", "enjoy", "eat"], c: ["Nasi Lemak", "spicy food", "durian"] },
+                { s: ["Parents", "They"], v: ["love", "hug", "protect"], c: ["their children", "their kids", "us"] }
+            ],
+            6: [
+                { s: ["We", "Humans", "Everyone"], v: ["must save", "should protect", "must clean"], c: ["the earth", "nature", "our rivers"] },
+                { s: ["Robots", "Computers", "Machines"], v: ["will help", "can assist", "will teach"], c: ["humans", "students", "people"] },
+                { s: ["Pollution", "Smoking", "Littering"], v: ["harms", "destroys", "hurts"], c: ["the environment", "our health", "nature"] }
+            ]
         };
 
-        /* ================= 3. GAME LOGIC ================= */
-        let currentPlayer = {};
-        let currentYear = 1;
-        let lives = 3;
-        let score = 0;
-        let qCount = 0;
-        let timeLeft = 30;
-        let timerInterval = null;
-        let currentQ = {};
+        let currentPlayer = {}, currentYear = 1, lives = 3, score = 0, qCount = 0, timeLeft = 30, timerInterval = null, currentQ = {};
 
         function filterStudents() {
             const input = document.getElementById('studentInput').value.toUpperCase();
             const list = document.getElementById('dropdownList');
             const btn = document.getElementById('startBtn');
             const display = document.getElementById('classDisplay');
-            
-            list.innerHTML = '';
-            btn.style.display = 'none';
-            display.style.display = 'none';
-            
+            list.innerHTML = ''; btn.style.display = 'none'; display.style.display = 'none';
             if (input.length < 2) { list.style.display = 'none'; return; }
-
-            // Filter
             const matches = STUDENT_DB.filter(s => s.n.includes(input));
-            
             if (matches.length > 0) {
                 list.style.display = 'block';
                 matches.forEach(s => {
@@ -339,16 +190,13 @@
                     div.onclick = () => selectStudent(s);
                     list.appendChild(div);
                 });
-            } else {
-                list.style.display = 'none';
-            }
+            } else { list.style.display = 'none'; }
         }
 
         function selectStudent(student) {
             currentPlayer = student;
             const yearMatch = student.c.match(/\d+/);
             currentYear = yearMatch ? parseInt(yearMatch[0]) : 1;
-
             document.getElementById('studentInput').value = student.n;
             document.getElementById('dropdownList').style.display = 'none';
             const disp = document.getElementById('classDisplay');
@@ -360,15 +208,10 @@
         function initGame() {
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('gameScreen').style.display = 'block';
-            
             document.getElementById('pName').innerText = currentPlayer.n;
             document.getElementById('pClass').innerText = currentPlayer.c;
-            
-            lives = 3;
-            score = 0;
-            qCount = 0;
-            updateLivesUI();
-            nextQuestion();
+            lives = 3; score = 0; qCount = 0;
+            updateLivesUI(); nextQuestion();
         }
 
         function resetGame() {
@@ -387,29 +230,25 @@
             document.getElementById('qNum').innerText = qCount;
             document.getElementById('score').innerText = score;
             document.getElementById('feedbackOverlay').style.display = 'none';
-
-            // 1. Get Data for Year
-            const yearData = VOCAB[currentYear] || VOCAB[1];
-
-            // 2. Decide: Singular or Plural Sentence? (50/50 Chance)
-            const isSingular = Math.random() < 0.5;
-            const pool = isSingular ? yearData.singular : yearData.plural;
-
-            // 3. Pick Parts
-            // We pick random Subject and random Verb from the SAME pool to ensure grammar match
-            const iS = Math.floor(Math.random() * pool.s.length);
-            const iV = Math.floor(Math.random() * pool.v.length);
-            const iC = Math.floor(Math.random() * yearData.c.length);
+            
+            // 1. Get List of Contexts for this Year
+            const possibleContexts = CONTEXTS[currentYear] || CONTEXTS[1];
+            // 2. Pick ONE Random Context
+            const ctx = possibleContexts[Math.floor(Math.random() * possibleContexts.length)];
+            
+            // 3. Pick S, V, C from THAT context
+            const iS = Math.floor(Math.random() * ctx.s.length);
+            const iV = Math.floor(Math.random() * ctx.v.length);
+            const iC = Math.floor(Math.random() * ctx.c.length);
 
             currentQ = {
                 parts: [
-                    { id: 's', txt: pool.s[iS], label: 'Subject' },
-                    { id: 'v', txt: pool.v[iV], label: 'Verb' },
-                    { id: 'c', txt: yearData.c[iC], label: 'Complement' }
+                    { id: 's', txt: ctx.s[iS], label: 'Subject' },
+                    { id: 'v', txt: ctx.v[iV], label: 'Verb' },
+                    { id: 'c', txt: ctx.c[iC], label: 'Complement' }
                 ]
             };
 
-            // Build Slots
             const slotsDiv = document.getElementById('slotsContainer');
             slotsDiv.innerHTML = '';
             currentQ.parts.forEach(p => {
@@ -429,12 +268,10 @@
                 slotsDiv.appendChild(slot);
             });
 
-            // Build Word Bank
             const bankDiv = document.getElementById('wordBank');
             bankDiv.innerHTML = '';
             let words = currentQ.parts.map(p => ({ txt: p.txt }));
             words.sort(() => Math.random() - 0.5);
-
             words.forEach((w, i) => {
                 const el = document.createElement('div');
                 el.className = 'draggable';
@@ -447,7 +284,6 @@
                 el.addEventListener('touchend', touchEnd);
                 bankDiv.appendChild(el);
             });
-
             startTimer();
         }
 
@@ -457,7 +293,6 @@
             const disp = document.getElementById('timerDisplay');
             disp.innerText = timeLeft;
             disp.classList.remove('timer-warning');
-
             timerInterval = setInterval(() => {
                 timeLeft--;
                 disp.innerText = timeLeft;
@@ -472,12 +307,7 @@
             stopTimer();
             lives--;
             updateLivesUI();
-            
-            if (lives <= 0) {
-                gameOver();
-            } else {
-                showFeedback(msg, "#c62828", 1500);
-            }
+            if (lives <= 0) { gameOver(); } else { showFeedback(msg, "#c62828", 1500); }
         }
 
         function updateLivesUI() {
@@ -488,8 +318,9 @@
 
         function gameOver() {
             document.getElementById('gameOverOverlay').style.display = 'flex';
-            document.getElementById('goName').innerText = currentPlayer.n.split(" ")[0]; // Just first name
+            document.getElementById('goName').innerText = currentPlayer.n.split(" ")[0];
             document.getElementById('goScore').innerText = score;
+            saveScoreToGoogleSheet();
         }
 
         function showFeedback(title, color, duration) {
@@ -506,35 +337,36 @@
             const slots = document.querySelectorAll('.slot');
             let allCorrect = true;
             let filledCount = 0;
-
             slots.forEach(slot => {
                 if(slot.children.length > 0) {
                     filledCount++;
                     const val = slot.children[0].innerText;
                     if(val !== slot.getAttribute('data-expect')) allCorrect = false;
-                } else {
-                    allCorrect = false;
-                }
+                } else { allCorrect = false; }
             });
-
-            if (filledCount < 3) {
-                // Resume if incomplete
-                startTimer();
-                return;
-            }
-
-            if (allCorrect) {
-                score += 10;
-                showFeedback("CORRECT! 🎉", "#2e7d32", 1500);
-            } else {
-                handleMistake("WRONG! ❌");
-            }
+            if (filledCount < 3) { startTimer(); return; }
+            if (allCorrect) { score += 10; showFeedback("CORRECT! 🎉", "#2e7d32", 1500); } else { handleMistake("WRONG! ❌"); }
         }
 
-        // --- DRAG DROP ---
-        let draggedItem = null;
-        let touchSrc = null;
+        function saveScoreToGoogleSheet() {
+            if(GOOGLE_SCRIPT_URL.includes("PASTE_YOUR")) { alert("Please paste your Google Script URL in the code!"); return; }
+            
+            const statusText = document.getElementById('saveStatus') || document.createElement('p');
+            statusText.innerText = "Saving score...";
+            
+            const data = { name: currentPlayer.n, class: currentPlayer.c, score: score };
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+            .then(() => { statusText.innerText = "✅ Score Saved!"; })
+            .catch(err => { statusText.innerText = "⚠️ Error saving."; console.error(err); });
+        }
 
+        // Drag/Touch Handlers
+        let draggedItem = null; let touchSrc = null;
         function dragStart(e) { draggedItem = e.target; e.dataTransfer.setData("text", e.target.id); }
         function allowDrop(e) { e.preventDefault(); }
         function dropInSlot(e) {
@@ -542,7 +374,6 @@
             let slot = e.target.closest('.slot');
             if(!slot) return;
             if(slot.children.length > 0) document.getElementById('wordBank').appendChild(slot.children[0]);
-            
             const id = e.dataTransfer.getData("text");
             const item = document.getElementById(id);
             slot.appendChild(item);
@@ -555,8 +386,6 @@
             if(item.parentElement.classList.contains('slot')) item.parentElement.classList.remove('filled');
             document.getElementById('wordBank').appendChild(item);
         }
-
-        // --- TOUCH ---
         function touchStart(e) { touchSrc = e.target; touchSrc.style.opacity = '0.5'; }
         function touchMove(e) {
             e.preventDefault();
@@ -572,7 +401,6 @@
             const elem = document.elementFromPoint(t.clientX, t.clientY);
             const slot = elem ? elem.closest('.slot') : null;
             const bank = elem ? elem.closest('.word-bank') : null;
-
             if(slot) {
                 if(slot.children.length > 0) document.getElementById('wordBank').appendChild(slot.children[0]);
                 slot.appendChild(touchSrc);
@@ -582,7 +410,6 @@
                 bank.appendChild(touchSrc);
             }
         }
-
     </script>
 </body>
 </html>
